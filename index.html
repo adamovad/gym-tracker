@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="אימונים">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>תוכנית חודש – מסה נקייה</title>
+<style>
+:root{--bg:#f4f6f5;--card:#fff;--ink:#16211e;--mute:#667570;--line:#dde4e1;--acc:#0f766e;--acc2:#e6f4f1;--warn:#b45309;--warnbg:#fff4e0;--bad:#b91c1c;--ok:#15803d}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1514;--card:#182120;--ink:#e8efed;--mute:#93a39e;--line:#2a3735;--acc:#2dd4bf;--acc2:#12312d;--warn:#fbbf24;--warnbg:#33290f;--bad:#f87171;--ok:#4ade80}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Heebo,system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 12px calc(90px + env(safe-area-inset-bottom))}
+h1{font-size:22px;margin:6px 0 2px;font-weight:800}
+.sub{color:var(--mute);font-size:14px;margin-bottom:12px}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;display:flex;gap:6px}
+nav button{flex:1;padding:10px 4px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+nav button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{padding:8px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;font:inherit;font-size:14px;cursor:pointer}
+.pill.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.pill.done{border-color:var(--ok)}
+.daybtn{flex:1;min-width:140px;text-align:right;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.daybtn.on{border-color:var(--acc);background:var(--acc2)}
+.daybtn small{display:block;color:var(--mute)}
+.daybtn .ck{float:left;color:var(--ok);font-weight:800}
+.note{background:var(--warnbg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
+.info{background:var(--acc2);border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
+.ex{border-top:1px solid var(--line);padding:12px 0}
+.ex:first-child{border-top:0}
+.exh{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.exh b{font-size:16px}
+.tag{background:var(--acc2);color:var(--acc);border-radius:8px;padding:2px 8px;font-size:13px;font-weight:700;white-space:nowrap}
+.hint{color:var(--mute);font-size:13px;margin:2px 0 6px}
+.set{display:flex;align-items:center;gap:8px;margin:5px 0}
+.set span.n{width:42px;color:var(--mute);font-size:13px}
+input[type=number],input[type=date],input[type=text],textarea,select{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;width:100%}
+.set input[type=number]{width:84px;text-align:center}
+input[type=checkbox]{width:22px;height:22px;accent-color:var(--acc)}
+.vid{color:var(--acc);font-weight:700;text-decoration:none}
+.flag{border:0;background:none;color:var(--mute);font-size:12px;cursor:pointer;text-decoration:underline;padding:0}
+.flag.on{color:var(--bad);font-weight:700}
+.btn{padding:12px 16px;border-radius:12px;border:0;background:var(--acc);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.btn.sec{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat{background:var(--acc2);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-size:22px}
+.stat span{font-size:12px;color:var(--mute)}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:4px 0 8px}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:6px}
+.meal{display:flex;gap:10px;align-items:flex-start}
+.meal .body{flex:1}
+.chips{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.chip{text-align:right;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.chip.on{border-color:var(--acc);background:var(--acc2)}
+.chip small{color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:right}
+h2{font-size:18px;margin:6px 0}
+h3{font-size:16px;margin:10px 0 4px}
+ul{padding-right:20px;margin:6px 0}
+li{margin:3px 0}
+label.f{display:block;font-size:13px;color:var(--mute);margin:6px 0 2px}
+.small{font-size:13px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>תוכנית חודש · מסה נקייה</h1>
+  <div class="sub">4 שבועות · 3–4 אימונים בשבוע · מותאם לכתפיים ולברך שמאל</div>
+  <nav id="nav"></nav>
+  <div id="view"></div>
+</div>
+
+<script>
+/* ===================== נתוני התוכנית ===================== */
+var WEEKS=[
+ {t:"שבוע 1 · כניסה לעומס",d:"סט ראשון כבד (טופ סט) ב־6–8 חזרות עם 1–2 חזרות ברזרבה, ואחריו סטי ירידה (‎−10%) ל־8–10 חזרות. בתרגילי בידוד: 1–2 חזרות לפני כשל."},
+ {t:"שבוע 2 · בנייה",d:"מוסיפים חזרה בכל סט, או 2.5 ק״ג בטופ סט כשהגעת ל־8 חזרות נקיות. עדיין 1–2 ברזרבה."},
+ {t:"שבוע 3 · דחיפה",d:"טופ סט ב־RPE 9 (חזרה אחת ברזרבה). בתרגילי בידוד אפשר להגיע לכשל בסט האחרון. ברגליים לא מעלים משקל אם כאב הברך מעל 3 מתוך 10."},
+ {t:"שבוע 4 · דילואד והערכה",d:"סט אחד פחות בכל תרגיל, ‎−10–15% במשקל, בלי כשל. בסוף: שקילה, מדידות והחלטה מה נשאר ומה מוחלף."}
+];
+var DAYS=[
+ {id:"d1",t:"יום 1 · עליון A",s:"חזה · גב · כתף צדית · זרועות",ex:[
+  {g:"A1",n:"לחיצת חזה במשקולות, ספסל משופע 30° בלבד",en:"Low incline dumbbell bench press (30 degrees)",s:4,r:"6–10",st:"22.5",m:1,h:"טופ סט כבד 6–8, אחריו סטי ירידה 8–10. פתיחה מוצעת: 22.5 ק״ג ליד (השיא שלך 25×8). מרפקים ~45°."},
+  {g:"A2",n:"משיכה עליונה (פולי) באחיזה ניטרלית או רחבה",en:"Lat pulldown neutral grip",s:4,r:"6–10",st:"65",m:1,h:"טופ סט כבד 6–8, אחריו ירידה 8–10. פתיחה מוצעת: 65 ק״ג (אתה בין 60 ל־70). בלי נדנוד."},
+  {g:"B1",n:"לחיצת חזה במכונה, ישיבה (אחיזה ניטרלית אם יש)",en:"Seated machine chest press",s:3,r:"8–12",h:"נפח נוסף אחרי הלחיצה הכבדה. בלי לנעול מרפקים."},
+  {g:"B2",n:"חתירה בכבל בישיבה",en:"Seated cable row",s:3,r:"8–12",st:"50",m:1,h:"פתיחה: 50 ק״ג ל־10–12. כשאתה מגיע ל־12 בכל הסטים – 55. עצירה של שנייה בהתכווצות."},
+  {g:"C1",n:"הרמות צד במשקולות / בכבל",en:"Dumbbell lateral raise",s:3,r:"12–15",h:"עד גובה הכתף בלבד."},
+  {g:"C2",n:"פשיטת מרפק בכבל (פושדאון)",en:"Cable triceps rope pushdown",s:3,r:"10–15",h:"מרפקים צמודים לגוף."},
+  {g:"D1",n:"פרפר בכבל או במכונה (חזה)",en:"Cable chest fly",s:2,r:"12–15",h:"טווח נוח בלי מתיחה קיצונית של הכתף, מרפק מעט כפוף."},
+  {g:"D2",n:"כפיפת פטישים במשקולות",en:"Dumbbell hammer curl",s:3,r:"10–12",h:"בלי נדנוד."}]},
+ {id:"d2",t:"יום 2 · רגליים A",s:"עדין לפיקה · ישבן · ירך אחורית",nt:"הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: בשבועיים הראשונים RPE 6–7, בלי טופ סט כבד, ובשבוע 1 מספיקים 2 סטים בכל תרגיל. כאבי שרירים חזקים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון, כדי שהברך תתחמם לפני העומס.",ex:[
+  {n:"לחיצת רגליים בטווח חלקי (עד ~70–90° ברך)",en:"Leg press partial range of motion",s:3,r:"10–12",h:"טמפו איטי, בלי נעילה. הברך בקו האצבעות. אם ההליכה כואבת למחרת – הורד משקל או קצר טווח."},
+  {n:"היפ ת׳ראסט (גשר ישבן עם מוט/משקולת)",en:"Barbell hip thrust",s:4,r:"6–12",h:"טופ סט כבד 6–8 ואז ירידה 10–12. עצירה של שנייה למעלה. התרגיל הכבד הבטוח ביותר לברך."},
+  {n:"כפיפת ברך בשכיבה / בישיבה (המסטרינג)",en:"Lying leg curl machine",s:3,r:"10–12",h:"טמפו איטי בירידה."},
+  {n:"היפראקסטנשן (גב תחתון) בלי משקל כבד",en:"45 degree back extension hyperextension",s:2,r:"12–15",h:"במקום דדליפט: גוף בלבד או משקולת קלה לחזה."},
+  {n:"הרמות תאומים בעמידה",en:"Standing calf raise",s:3,r:"12–15",h:"טווח מלא, עצירה למעלה."},
+  {n:"פלאנק",en:"Plank",s:3,r:"30–45 שנ׳",h:"גוף ישר, בלי שקיעה בגב. אפשר לרשום שניות במקום חזרות."}]},
+ {id:"d3",t:"יום 3 · עליון B",s:"חזה · גב · כתף אחורית · זרועות",ex:[
+  {g:"A1",n:"לחיצת חזה במכונה / משקולות על ספסל שטוח",en:"Flat dumbbell bench press",s:4,r:"6–10",st:"32.5",m:1,h:"פתיחה: 32.5 ק״ג לצד (היום 30×8) ל־6–8 חזרות בטופ סט, ואז ירידה."},
+  {g:"A2",n:"משיכה עליונה אחיזה צרה ניטרלית (או מתח בסיוע)",en:"Close grip neutral lat pulldown",s:3,r:"6–10",h:"אם המתח לא נוח לכתף – פולי."},
+  {g:"B1",n:"לחיצת חזה משופעת במכונה או בסמית׳ (זווית נמוכה)",en:"Low incline smith machine press",s:3,r:"8–12",h:"זווית של עד 30°, לא יותר."},
+  {g:"B2",n:"חתירה נתמכת חזה (מכונה / משקולות)",en:"Chest supported row",s:3,r:"10–12",h:"הגב מוגן, הטכניקה נקייה."},
+  {g:"C1",n:"פרפר אחורי (כתף אחורית)",en:"Reverse pec deck rear delt fly",s:3,r:"12–15",h:"משקל קל, תנועה נקייה."},
+  {g:"C2",n:"הרמות צד בכבל",en:"Cable lateral raise",s:3,r:"12–20",h:"מתח רציף לאורך כל התנועה."},
+  {g:"D1",n:"קרוס־אובר בכבל, מגבוה למטה (חזה תחתון)",en:"High to low cable crossover",s:2,r:"12–15",h:"מרפקים מעט כפופים, הידיים נפגשות מול הבטן התחתונה."},
+  {g:"D2",n:"סופר־סט: כפיפת מרפק בכבל + פשיטת מרפק בחבל",en:"Cable biceps curl",s:3,r:"10–15",h:"בלי מנוחה בין שני התרגילים, מנוחה 90 שנ׳ אחרי הזוג."}]},
+ {id:"d4",t:"יום 4 · רגליים B + ליבה (מומלץ, אפשר לדלג)",s:"עומס מינימלי על הפיקה · ליבה",nt:"אימון קצר ואופציונלי. בשבועיים הראשונים כמעט רק תנועה: 2 סטים בכל תרגיל, משקל קל. אם עברת את יום 2 בלי כאב בהליכה למחרת – מוסיפים סט.",ex:[
+  {n:"גובלט סקוואט עד ספסל גבוה (עומק קטן)",en:"Goblet box squat",s:2,r:"8–12",h:"משקל קל, RPE 6–7, טמפו איטי. מטרתו תנועה ולא עומס. אם הברך כואבת – החלף בגשר ישבן נוסף."},
+  {n:"גשר ישבן חד־רגלי",en:"Single leg glute bridge",s:3,r:"10 לצד",h:"אפשר גם עם משקולת על האגן."},
+  {n:"כפיפת ברך בישיבה",en:"Seated leg curl machine",s:3,r:"12–15",h:"אחרי יום 2 – אפשר להפחית משקל."},
+  {n:"אבדוקשן ירך במכונה",en:"Hip abduction machine",s:2,r:"15",h:"יציבות ירך לטובת הברך."},
+  {n:"הרמות תאומים בישיבה",en:"Seated calf raise",s:3,r:"15",h:""},
+  {n:"דד־באג או Pallof press בכבל",en:"Dead bug exercise",s:3,r:"10 לצד",h:"ליבה יציבה בלי עומס על הצוואר."}]}
+];
+var MEALS=[
+ {t:"בוקר · קליל",opts:[
+  {n:"שייק: מנת חלבון + 250 מ״ל חלב + בננה + 60 גר׳ שיבולת שועל + כף חמאת בוטנים",k:600,p:42},
+  {n:"סקייר / יוגורט יווני 300 גר׳ + 50 גר׳ גרנולה או שיבולת + פרי + כפית דבש",k:480,p:34},
+  {n:"3 ביצים + 2 פרוסות לחם מלא + קוטג׳ + ירקות",k:520,p:34}]},
+ {t:"צהריים",opts:[
+  {n:"120 גר׳ חזה עוף/הודו (מבושל) + 200 גר׳ אורז מבושל + ירקות + כף שמן זית",k:620,p:38},
+  {n:"170 גר׳ דג (סלמון/אמנון) + בטטה בינונית + סלט + כף טחינה",k:650,p:38},
+  {n:"250 גר׳ פסטה מבושלת + 120 גר׳ עוף/טונה + רוטב עגבניות + גבינה מגוררת",k:680,p:42}]},
+ {t:"ביניים / לפני אימון",opts:[
+  {n:"פיתה + טונה או גבינה לבנה 5% + ירק + פרי",k:400,p:25},
+  {n:"שייק קל: מנת חלבון + בננה + 40 גר׳ שיבולת שועל + חלב או מים",k:380,p:30},
+  {n:"קוטג׳ 250 גר׳ + 2 פרוסות לחם + פרי",k:400,p:28}]},
+ {t:"ערב / אחרי אימון",opts:[
+  {n:"120 גר׳ בקר רזה או עוף + תפוח אדמה גדול / 200 גר׳ אורז + סלט + 2 כפות חומוס",k:700,p:36},
+  {n:"אומלט 3 ביצים + גבינה + פיתה + סלט + חצי אבוקדו",k:680,p:30},
+  {n:"170 גר׳ דג או שניצל בתנור + קוסקוס/אורז + ירקות",k:700,p:40}]},
+ {t:"לפני שינה · אופציונלי",opts:[
+  {n:"קוטג׳ או סקייר 200 גר׳ + פרי",k:200,p:22},
+  {n:"כוס חלב + חצי מנת חלבון",k:220,p:20}]}
+];
+var T_TRAIN={k:2600,p:140,c:350,f:70}, T_REST={k:2400,p:140,c:300,f:70};
+
+/* ===================== מצב ושמירה ===================== */
+var LS="fit_tracker_v1";
+function blank(){return {ts:0,w:{},m:{},bw:[],ms:[],flags:{}}}
+function loadLocal(){try{var j=localStorage.getItem(LS);if(j){var o=JSON.parse(j);return Object.assign(blank(),o)}}catch(e){}return blank()}
+var S=loadLocal(), dbRef=null, tmr=null;
+var UI={tab:"workout",week:0,day:0,date:today(),msg:""};
+function today(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
+function save(){
+  S.ts=Date.now();
+  try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
+  clearTimeout(tmr);
+  tmr=setTimeout(function(){
+    if(dbRef){try{dbRef.set({json:JSON.stringify(S)})}catch(e){}}
+  },900);
+}
+(async function initDb(){
+  try{
+    if(!(window.claude&&claude.use))return;
+    var db=await claude.use("db"), user=await claude.use("user");
+    if(!db||!user)return;
+    var id=await user.id();
+    dbRef=db.collection("data/users/"+id).doc("tracker");
+    var snap=await dbRef.get();
+    var d=snap&&(typeof snap.data==="function"?snap.data():snap);
+    if(d&&d.json){
+      var remote=JSON.parse(d.json);
+      if((remote.ts||0)>(S.ts||0)){
+        S=Object.assign(blank(),remote);
+        try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
+        render();
+      }
+    }else if(S.ts){ dbRef.set({json:JSON.stringify(S)}); }
+  }catch(e){}
+})();
+
+/* ===================== עזרים ===================== */
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function wk(w,d){var k="w"+w+d;return S.w[k]||(S.w[k]={sets:{},done:false,date:"",knee:"",sh:"",note:""})}
+function prevVal(w,d,ei,si,key){
+  for(var x=w-1;x>=0;x--){var o=S.w["w"+x+DAYS[d].id];if(o&&o.sets[ei+"_"+si]&&o.sets[ei+"_"+si][key])return o.sets[ei+"_"+si][key]}
+  return ""
+}
+function meal(date){return S.m[date]||(S.m[date]={train:true,sel:{},eat:{},water:false,creatine:false})}
+function fmtD(s){var p=s.split("-");return p[2]+"/"+p[1]}
+
+/* ===================== תצוגות ===================== */
+function renderNav(){
+  var tabs=[["workout","💪 אימונים"],["food","🍽️ תזונה"],["progress","📈 התקדמות"],["guide","📋 הנחיות"]];
+  document.getElementById("nav").innerHTML=tabs.map(function(t){return '<button data-tab="'+t[0]+'" class="'+(UI.tab===t[0]?"on":"")+'">'+t[1]+'</button>'}).join("");
+}
+function vWorkout(){
+  var h=bkNudge()+'<div class="row" style="margin-top:6px">'+WEEKS.map(function(w,i){
+    var c=DAYS.filter(function(d){return wk(i,d.id).done}).length;
+    return '<button class="pill '+(UI.week===i?"on":"")+'" data-week="'+i+'">שבוע '+(i+1)+(c?' · '+c+'/'+(DAYS.length):'')+'</button>'}).join("")+'</div>';
+  var W=WEEKS[UI.week];
+  h+='<div class="info"><b>'+W.t+'</b><br>'+W.d+'</div>';
+  h+='<div class="row">'+DAYS.map(function(d,i){
+    var done=wk(UI.week,d.id).done;
+    return '<button class="daybtn '+(UI.day===i?"on":"")+'" data-day="'+i+'">'+(done?'<span class="ck">✓</span>':'')+'<b>'+d.t.split(" · ")[0]+' · '+d.t.split(" · ")[1].split(" (")[0]+'</b><small>'+d.s+'</small></button>'}).join("")+'</div>';
+  var D=DAYS[UI.day], rec=wk(UI.week,D.id);
+  h+='<div class="card"><h2>'+D.t+'</h2>';
+  if(D.nt)h+='<div class="info">'+D.nt+'</div>';
+  if(UI.day===3)h+='<div class="small">מינימום 3 אימונים בשבוע. יום 4 מתווסף כשיש כוח וזמן.</div>';
+  h+='<div class="note">יעד: 45–60 דקות. חימום קצר (5 דק׳): אופניים או הליכה, סיבובי כתף עם גומייה, סט חימום קל בתרגיל הראשון.'+(D.ex[0].g?' תרגילים עם אותה אות (A1 ו־A2) עושים לסירוגין: סט, 60–90 שנ׳ מנוחה, סט של השני, וחוזרים.':' מנוחה: 90–120 שנ׳ בתרגילים המורכבים, 60 שנ׳ בשאר.')+'</div>';
+  D.ex.forEach(function(e,ei){
+    var key=D.id+"e"+ei, fl=S.flags[key];
+    h+='<div class="ex"><div class="exh"><div><b>'+(e.g||(ei+1)+'.')+' '+e.n+'</b></div><span class="tag">'+e.s+'×'+e.r+'</span></div>';
+    if(e.h)h+='<div class="hint">'+e.h+'</div>';
+    if(e.en)h+='<div class="hint"><a class="vid" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(e.en+' how to')+'">▶ איך עושים? </a><span dir="ltr">'+e.en+'</span></div>';
+    for(var si=0;si<e.s;si++){
+      var st=rec.sets[ei+"_"+si]||{};
+      h+='<div class="set"><span class="n">סט '+(si+1)+'</span>'+
+        '<input type="number" inputmode="decimal" step="0.5" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"w")||e.st||'ק״ג')+'" value="'+esc(st.w||"")+'" data-set="'+ei+'_'+si+'" data-k="w">'+
+        '<input type="number" inputmode="numeric" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"r")||'חזרות')+'" value="'+esc(st.r||"")+'" data-set="'+ei+'_'+si+'" data-k="r">'+
+        '<input type="checkbox" '+(st.d?"checked":"")+' data-set="'+ei+'_'+si+'" data-k="d" aria-label="בוצע"></div>';
+    }
+    h+='<button class="flag '+(fl?"on":"")+'" data-flag="'+key+'">'+(fl?"⚠ סומן כלא מתאים (לחץ לביטול)":"סמן כלא נוח / לא מתאים")+'</button></div>';
+  });
+  h+='<h3>איך הרגשת?</h3><div class="grid">'+
+    '<div><label class="f">כאב ברך באימון (0–10)</label>'+sel("knee",rec.knee)+'</div>'+
+    '<div><label class="f">כאב ברך בהליכה למחרת (0–10)</label>'+sel("knee2",rec.knee2)+'</div>'+
+    '<div><label class="f">אי נוחות כתף (0–10)</label>'+sel("sh",rec.sh)+'</div></div>'+
+    '<label class="f">הערות</label><textarea rows="2" data-note="1" placeholder="מה עבד, מה לא, אנרגיה, שינה...">'+esc(rec.note)+'</textarea>';
+  h+='<div style="margin-top:12px"><button class="btn" data-done="1">'+(rec.done?"✓ האימון סומן כבוצע (לחץ לביטול)":"סיימתי את האימון")+'</button>'+(rec.date?' <span class="small">'+fmtD(rec.date)+'</span>':'')+'</div></div>';
+  return h;
+}
+function bkNudge(){
+  if(!S.ts)return '';
+  var last=S.bk?(Date.now()-new Date(S.bk).getTime())/864e5:999;
+  if(last<7)return '';
+  return '<div class="note">לא גיבית '+(S.bk?Math.floor(last)+' ימים':'עדיין')+'. כדאי לגבות פעם בשבוע: לשונית התקדמות ← גיבוי.</div>';
+}
+function sel(k,v){var o='<option value="">–</option>';for(var i=0;i<=10;i++)o+='<option value="'+i+'"'+(String(v)===String(i)?" selected":"")+'>'+i+'</option>';return '<select data-sel="'+k+'">'+o+'</select>'}
+
+function totals(m){
+  var k=0,p=0;
+  MEALS.forEach(function(M,i){if(m.eat[i]){var o=M.opts[m.sel[i]||0];k+=o.k;p+=o.p}});
+  return {k:k,p:p};
+}
+function vFood(){
+  var m=meal(UI.date), T=m.train?T_TRAIN:T_REST, t=totals(m);
+  var h='<div class="card"><div class="row"><div style="flex:1"><label class="f">תאריך</label><input type="date" value="'+UI.date+'" data-date="1"></div>'+
+   '<div style="flex:1"><label class="f">סוג יום</label><div class="row"><button class="pill '+(m.train?"on":"")+'" data-train="1">יום אימון</button><button class="pill '+(!m.train?"on":"")+'" data-train="0">יום מנוחה</button></div></div></div>';
+  h+='<div style="margin-top:10px"><b>'+t.k+'</b> / '+T.k+' קלוריות'+bar(t.k/T.k)+'<b>'+t.p+'</b> / '+T.p+' גר׳ חלבון'+bar(t.p/T.p)+'</div>';
+  h+='<div class="small">יעד: חלבון ~'+T.p+' · פחמימות ~'+T.c+' · שומן ~'+T.f+' גר׳. סימון ארוחה = אכלתי אותה. הספירה בקירוב.</div></div>';
+  MEALS.forEach(function(M,i){
+    var s=m.sel[i]||0;
+    h+='<div class="card"><div class="meal"><input type="checkbox" '+(m.eat[i]?"checked":"")+' data-eat="'+i+'" aria-label="אכלתי"><div class="body"><b>'+M.t+'</b><div class="chips">'+
+     M.opts.map(function(o,oi){return '<button class="chip '+(s===oi?"on":"")+'" data-opt="'+i+'_'+oi+'">'+o.n+' <small>· ~'+o.k+' קל׳ · '+o.p+' גר׳ חלבון</small></button>'}).join("")+'</div></div></div></div>';
+  });
+  h+='<div class="card"><div class="meal"><input type="checkbox" '+(m.water?"checked":"")+' data-chk="water"><div>שתיתי 2.5–3 ליטר מים</div></div>'+
+     '<div class="meal" style="margin-top:8px"><input type="checkbox" '+(m.creatine?"checked":"")+' data-chk="creatine"><div>קראטין 5 גר׳ (אופציונלי) <span class="small">רלוונטי רק אם החלטת להשתמש</span></div></div></div>';
+  h+='<div class="info">בוקר מהיר = השייק. ביום מנוחה אפשר לדלג על הארוחה הביניים ולהגדיל מעט את הפחמימה בצהריים ובערב. אם חסרות קלוריות: כף שמן זית, חופן אגוזים או פרוסת לחם נוספת.</div>';
+  return h;
+}
+function bar(r){r=Math.max(0,Math.min(1,r));return '<div class="bar"><i style="width:'+Math.round(r*100)+'%"></i></div>'}
+
+function chart(){
+  var a=S.bw.slice().sort(function(x,y){return x.d<y.d?-1:1});
+  if(a.length<2)return '<div class="small">הוסף לפחות 2 שקילות כדי לראות גרף.</div>';
+  var W=640,H=190,pl=36,pr=10,pt=12,pb=26;
+  var min=Math.min.apply(null,a.map(function(x){return x.v}))-0.5, max=Math.max.apply(null,a.map(function(x){return x.v}))+0.5;
+  var t0=new Date(a[0].d).getTime(), t1=new Date(a[a.length-1].d).getTime(); if(t1===t0)t1=t0+1;
+  function X(d){return pl+(new Date(d).getTime()-t0)/(t1-t0)*(W-pl-pr)}
+  function Y(v){return pt+(max-v)/(max-min)*(H-pt-pb)}
+  var pts=a.map(function(x){return X(x.d).toFixed(1)+","+Y(x.v).toFixed(1)}).join(" ");
+  var g='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="גרף משקל">';
+  for(var i=0;i<=3;i++){var v=min+(max-min)*i/3,y=Y(v);g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'" stroke="var(--line)"/><text x="'+(pl-4)+'" y="'+(y+4)+'" font-size="11" text-anchor="end" fill="var(--mute)">'+v.toFixed(1)+'</text>'}
+  g+='<polyline points="'+pts+'" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round"/>';
+  a.forEach(function(x){g+='<circle cx="'+X(x.d)+'" cy="'+Y(x.v)+'" r="3.5" fill="var(--acc)"/>'});
+  g+='<text x="'+pl+'" y="'+(H-6)+'" font-size="11" fill="var(--mute)">'+fmtD(a[0].d)+'</text><text x="'+(W-pr)+'" y="'+(H-6)+'" font-size="11" text-anchor="end" fill="var(--mute)">'+fmtD(a[a.length-1].d)+'</text></svg>';
+  return g;
+}
+function weekAvg(){
+  var a=S.bw.slice().sort(function(x,y){return x.d<y.d?-1:1});
+  if(a.length<2)return null;
+  var f=a.slice(0,3), l=a.slice(-3);
+  function avg(z){return z.reduce(function(s,x){return s+x.v},0)/z.length}
+  var days=(new Date(a[a.length-1].d)-new Date(a[0].d))/864e5;
+  return {first:avg(f),last:avg(l),days:days};
+}
+function vProgress(){
+  var done=0,total=WEEKS.length*3,flags=[],kn=[],kn2=[],sh=[];
+  WEEKS.forEach(function(_,w){DAYS.forEach(function(d){var r=S.w["w"+w+d.id];if(r){if(r.done)done++;if(r.knee!=="")kn.push(+r.knee);if(r.knee2!==undefined&&r.knee2!=="")kn2.push(+r.knee2);if(r.sh!=="")sh.push(+r.sh)}})});
+  Object.keys(S.flags).forEach(function(k){if(S.flags[k]){var d=DAYS.filter(function(x){return k.indexOf(x.id)===0})[0],ei=+k.slice(d.id.length+1);flags.push(d.ex[ei].n+' <span class="small">('+d.t.split(" · ")[0]+')</span>')}});
+  var mealDays=Object.keys(S.m).filter(function(d){return Object.keys(S.m[d].eat).some(function(i){return S.m[d].eat[i]})}).length;
+  var wa=weekAvg();
+  function mx(a){return a.length?Math.max.apply(null,a):"–"}
+  var h='<div class="grid" style="margin-top:8px">'+
+   '<div class="stat"><b>'+done+'</b><span>אימונים שבוצעו (יעד מינימום '+total+')</span></div>'+
+   '<div class="stat"><b>'+mealDays+'</b><span>ימי תזונה שנרשמו</span></div>'+
+   '<div class="stat"><b>'+(wa?(wa.last-wa.first>=0?"+":"")+(wa.last-wa.first).toFixed(1):"–")+'</b><span>שינוי משקל (ק״ג, ממוצע)</span></div></div>';
+  h+='<div class="card"><h2>משקל</h2><div class="row"><input type="date" id="bwd" value="'+today()+'" style="flex:1"><input type="number" step="0.1" inputmode="decimal" id="bwv" placeholder="ק״ג" style="flex:1"><button class="btn" data-addbw="1">הוסף</button></div>'+chart();
+  if(wa){var wk_=wa.days/7,rate=wk_>0.5?(wa.last-wa.first)/wk_:null;h+='<div class="info">'+(rate!==null?'קצב: '+(rate>=0?"+":"")+rate.toFixed(2)+' ק״ג בשבוע. ':"")+'יעד: +0.15 עד +0.3 ק״ג בשבוע. שקול בבוקר אחרי שירותים, אותו תנאי, 3 פעמים בשבוע – ופעל לפי הממוצע ולא לפי יום בודד.</div>'}
+  var last=S.bw.slice().sort(function(x,y){return x.d<y.d?1:-1}).slice(0,6);
+  if(last.length)h+='<table>'+last.map(function(x){return '<tr><td>'+fmtD(x.d)+'</td><td>'+x.v+' ק״ג</td><td><button class="flag" data-delbw="'+x.d+'">מחק</button></td></tr>'}).join("")+'</table>';
+  h+='</div>';
+  h+='<div class="card"><h2>מדידות (ס״מ)</h2><div class="small">מדוד בתחילת החודש ובסופו, באותו תנאי. המותן חשוב כדי לוודא שהעלייה נקייה.</div><div class="grid" style="margin-top:6px">'+
+   '<div><label class="f">תאריך</label><input type="date" id="msd" value="'+today()+'"></div>'+
+   '<div><label class="f">מותן (בגובה הטבור)</label><input type="number" id="msw" step="0.1" inputmode="decimal"></div>'+
+   '<div><label class="f">חזה</label><input type="number" id="msc" step="0.1" inputmode="decimal"></div>'+
+   '<div><label class="f">זרוע (מכווצת)</label><input type="number" id="msa" step="0.1" inputmode="decimal"></div>'+
+   '<div><label class="f">ירך</label><input type="number" id="mst" step="0.1" inputmode="decimal"></div></div>'+
+   '<div style="margin-top:8px"><button class="btn" data-addms="1">שמור מדידה</button></div>';
+  if(S.ms.length)h+='<table style="margin-top:8px"><tr><th>תאריך</th><th>מותן</th><th>חזה</th><th>זרוע</th><th>ירך</th><th></th></tr>'+S.ms.slice().sort(function(x,y){return x.d<y.d?-1:1}).map(function(x){return '<tr><td>'+fmtD(x.d)+'</td><td>'+(x.w||"–")+'</td><td>'+(x.c||"–")+'</td><td>'+(x.a||"–")+'</td><td>'+(x.t||"–")+'</td><td><button class="flag" data-delms="'+x.d+'">מחק</button></td></tr>'}).join("")+'</table>';
+  h+='</div>';
+  h+=vLifts();
+  h+='<div class="card"><h2>סיכום למידה</h2><div class="grid"><div class="stat"><b>'+mx(kn)+'</b><span>שיא כאב ברך באימון</span></div><div class="stat"><b>'+mx(kn2)+'</b><span>שיא כאב ברך בהליכה למחרת</span></div><div class="stat"><b>'+mx(sh)+'</b><span>שיא אי נוחות כתף</span></div></div>'+
+   '<h3>תרגילים שסומנו כלא מתאימים</h3>'+(flags.length?'<ul>'+flags.map(function(f){return '<li>'+f+'</li>'}).join("")+'</ul><div class="small">בסוף החודש נחליף אותם בחלופה.</div>':'<div class="small">אין עדיין.</div>')+'</div>';
+  h+='<div class="card"><h2>גיבוי</h2><div class="small">הנתונים נשמרים אוטומטית. לגיבוי נוסף: העתק את הטקסט ושמור אותו אצלך; לשחזור הדבק והחל.</div><textarea id="bk" rows="3"></textarea><div class="row" style="margin-top:6px"><button class="btn sec" data-export="1">הצג והעתק גיבוי</button><button class="btn sec" data-import="1">שחזר מהטקסט</button></div><div class="small" id="bkmsg"></div></div>';
+  return h;
+}
+function vLifts(){
+  var rows=[];
+  DAYS.forEach(function(d){d.ex.forEach(function(e,ei){
+    if(!e.m)return;
+    var cells=WEEKS.map(function(_,w){
+      var r=S.w["w"+w+d.id],b=null;
+      if(r)Object.keys(r.sets).forEach(function(k){
+        if(k.indexOf(ei+"_")!==0)return;
+        var s=r.sets[k],kg=parseFloat(s.w),rp=parseFloat(s.r);
+        if(kg>0&&rp>0&&(!b||kg>b.kg||(kg===b.kg&&rp>b.rp)))b={kg:kg,rp:rp};
+      });
+      return b?b.kg+"×"+b.rp:"–";
+    });
+    rows.push('<tr><td>'+e.n.split(",")[0].split(" (")[0].split(" /")[0]+'</td>'+cells.map(function(c){return '<td>'+c+'</td>'}).join("")+'</tr>');
+  })});
+  return '<div class="card"><h2>עומס בתרגילים המרכזיים</h2><div class="small">הטופ סט הכבד ביותר בכל שבוע (ק״ג × חזרות).</div><table><tr><th>תרגיל</th><th>ש׳1</th><th>ש׳2</th><th>ש׳3</th><th>ש׳4</th></tr>'+rows.join("")+'</table></div>';
+}
+function vGuide(){
+  return '<div class="card"><h2>עקרונות לכתפיים ולברך</h2><ul>'+
+   '<li><b>כתפיים:</b> אין לחיצות מעל הראש ואין דיפס. לחיצת חזה משופעת רק עד 30°, הרמות צד מותרות, יש גם פרפר אחורי ומשיכות לחיזוק היציבות.</li>'+
+   '<li><b>ברך שמאל (בייפרטייט פטלה):</b> העומס על הפיקה הוא מה שמכאיב, ולכן הרגליים מבוססות על ישבן וירך אחורית, ולחיצת רגליים רק בטווח חלקי. אין דדליפט, לאנג׳ים, סקוואט כבד או הרחבת ברך.</li>'+
+   '<li><b>כלל הליכה:</b> אם למחרת הכאב בהליכה 3 ומעלה – באימון הרגליים הבא מורידים כ־20% במשקל ומקצרים טווח. 5 ומעלה, או כאב שנמשך יותר מ־48 שעות – מדלגים על לחיצת הרגליים והסקוואט עד שהוא יורד.</li>'+
+   '<li><b>סולם כאב:</b> עד 3 מתוך 10 – ממשיכים בזהירות. 4–5 – מורידים משקל או מקצרים טווח. מעל 5 או כאב חד – עוצרים את התרגיל ומחליפים אותו. כאב שנמשך אחרי האימון – כדאי פיזיותרפיסט.</li></ul></div>'+
+   '<div class="card"><h2>איך מתקדמים</h2><ul><li><b>טופ סט + ירידה:</b> בתרגילים המרכזיים (4 סטים) הסט הראשון כבד, 6–8 חזרות עם 1–2 ברזרבה. שאר הסטים ב־10% פחות משקל ל־8–10 חזרות.</li>'+
+   '<li><b>מתי מעלים:</b> כשהטופ סט עבר 8 חזרות נקיות – 2.5 ק״ג (ליד, במשקולות) או 5 ק״ג (בכבל). בתרגילי בידוד קטנים 1–2.5 ק״ג או חזרה נוספת.</li>'+
+   '<li>המספר באפור בשדה הוא מה שעשית בשבוע הקודם בסט הזה, או נקודת הפתיחה המוצעת בשבוע 1. המטרה: לעקוף אותו בחזרה או בקילו.</li>'+
+   '<li>שבוע 4 הוא דילואד מתוכנן, לא שבוע חלש. הגוף גדל במנוחה, ואחריו נפתח חודש עם משקלים חדשים.</li></ul></div>'+
+   '<div class="card"><h2>תזונה: העקרונות</h2><ul>'+
+   '<li>מעט עודף: ~2600 קלוריות ביום אימון, ~2400 ביום מנוחה (הערכה מאזן ~2400). זה מכוון לעלייה איטית של 0.15–0.3 ק״ג בשבוע, כדי להישאר חטוב.</li>'+
+   '<li>חלבון ~140 גר׳ (כ־2 גר׳ לק״ג) ב־4 ארוחות. שומן ~70, השאר פחמימות, בעיקר סביב האימון.</li>'+
+   '<li>אם אתה לא סופר קלוריות: בשבועיים הראשונים אוכלים לפי הארוחות בתפריט, בלי לספור, ושוקלים 3 פעמים בשבוע. הממוצע קובע אם מוסיפים או מורידים.</li>'+
+   '<li>בוקר פשוט: שייק אחד בלנדר, 2 דקות. כל ארוחה אחרת ניתנת להחלפה בשייק אם אין זמן.</li></ul></div>'+
+   '<div class="card"><h2>אירובי והליכה</h2><ul><li>אירובי אינו חובה כדי לעלות במסה. אבל הליכה של 20–30 דקות 2–3 פעמים בשבוע (או כ־7–8 אלף צעדים ביום) עוזרת להתאוששות ולבריאות הלב, ולא פוגעת בעלייה.</li><li>אם ההליכה מכאיבה לברך אחרי אימון רגליים, מדלגים עליה באותו יום ומדווחים בשדה "כאב ברך בהליכה למחרת".</li></ul></div>'+
+   '<div class="card"><h2>איך מכווננים אחרי שבועיים</h2><ul>'+
+   '<li><b>המשקל לא עלה</b> (ממוצע): מוסיפים ~150 קלוריות (עוד פרוסת לחם, אורז, או שייק).</li>'+
+   '<li><b>עלה מעל 0.4 ק״ג בשבוע</b> או שהמותן גדל מעל 1.5 ס״מ: מורידים ~150 קלוריות.</li>'+
+   '<li><b>עלה 0.15–0.3 והמותן יציב:</b> לא נוגעים בכלום.</li></ul></div>'+
+   '<div class="note">זו תוכנית כללית ואינה תחליף לייעוץ רפואי או פיזיותרפי. עם רגישות בכתף ובברך, אם יש כאב שחוזר או מחמיר – כדאי לבדוק עם איש מקצוע. תוצאות בחודש אחד הן בעיקר ללמידה: מה הגוף שלך אוהב.</div>';
+}
+function render(){
+  renderNav();
+  var v=document.getElementById("view");
+  v.innerHTML=UI.tab==="workout"?vWorkout():UI.tab==="food"?vFood():UI.tab==="progress"?vProgress():vGuide();
+}
+
+/* ===================== אירועים ===================== */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-tab],[data-week],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
+  if(!t)return;
+  var D=t.dataset;
+  if(D.tab){UI.tab=D.tab;render();window.scrollTo(0,0);return}
+  if(D.week!==undefined){UI.week=+D.week;render();return}
+  if(D.day!==undefined){UI.day=+D.day;render();return}
+  if(D.flag){S.flags[D.flag]=!S.flags[D.flag];save();render();return}
+  if(D.done){var r=wk(UI.week,DAYS[UI.day].id);r.done=!r.done;r.date=r.done?today():"";save();render();return}
+  if(D.train!==undefined){meal(UI.date).train=D.train==="1";save();render();return}
+  if(D.opt){var p=D.opt.split("_");meal(UI.date).sel[p[0]]=+p[1];meal(UI.date).eat[p[0]]=true;save();render();return}
+  if(D.addbw!==undefined){var d=document.getElementById("bwd").value,v=parseFloat(document.getElementById("bwv").value);if(!d||!(v>30&&v<200))return;S.bw=S.bw.filter(function(x){return x.d!==d});S.bw.push({d:d,v:v});save();render();return}
+  if(D.delbw){S.bw=S.bw.filter(function(x){return x.d!==D.delbw});save();render();return}
+  if(D.addms!==undefined){var g=function(i){var x=parseFloat(document.getElementById(i).value);return isNaN(x)?"":x};var dd=document.getElementById("msd").value;if(!dd)return;S.ms=S.ms.filter(function(x){return x.d!==dd});S.ms.push({d:dd,w:g("msw"),c:g("msc"),a:g("msa"),t:g("mst")});save();render();return}
+  if(D.delms){S.ms=S.ms.filter(function(x){return x.d!==D.delms});save();render();return}
+  if(D.export!==undefined){var ta=document.getElementById("bk");ta.value=JSON.stringify(S);ta.select();S.bk=today();try{localStorage.setItem(LS,JSON.stringify(S))}catch(x){}var ok=false;try{navigator.clipboard.writeText(ta.value).then(function(){document.getElementById("bkmsg").textContent="הועתק ללוח"},function(){document.getElementById("bkmsg").textContent="סמן והעתק ידנית"});ok=true}catch(x){}if(!ok)document.getElementById("bkmsg").textContent="סמן והעתק ידנית";return}
+  if(D.import!==undefined){try{var o=JSON.parse(document.getElementById("bk").value);if(!o||typeof o!=="object"||!o.w)throw 0;S=Object.assign(blank(),o);save();render();document.getElementById("bkmsg")&&0}catch(x){document.getElementById("bkmsg").textContent="הטקסט לא תקין"}return}
+});
+document.addEventListener("input",function(e){
+  var t=e.target,D=t.dataset;
+  if(D.set){var r=wk(UI.week,DAYS[UI.day].id),st=r.sets[D.set]||(r.sets[D.set]={});st[D.k]=t.type==="checkbox"?t.checked:t.value;save()}
+  else if(D.note){wk(UI.week,DAYS[UI.day].id).note=t.value;save()}
+});
+document.addEventListener("change",function(e){
+  var t=e.target,D=t.dataset;
+  if(D.sel){wk(UI.week,DAYS[UI.day].id)[D.sel]=t.value;save()}
+  else if(D.date){if(t.value){UI.date=t.value;render()}}
+  else if(D.eat!==undefined){meal(UI.date).eat[D.eat]=t.checked;save();render()}
+  else if(D.chk){meal(UI.date)[D.chk]=t.checked;save()}
+});
+render();
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js')}catch(e){}
+</script>
+</body>
+</html>
