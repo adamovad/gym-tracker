@@ -301,6 +301,7 @@ function sel(k,v){var o='<option value="">–</option>';for(var i=0;i<=10;i++)o+
 function totals(m){
   var k=0,p=0;
   MEALS.forEach(function(M,i){if(m.eat[i]){var o=M.opts[m.sel[i]||0];k+=o.k;p+=o.p}});
+  (m.free||[]).forEach(function(f){k+=+f.k||0;p+=+f.p||0});
   return {k:k,p:p};
 }
 function vFood(){
@@ -314,6 +315,11 @@ function vFood(){
     h+='<div class="card"><div class="meal"><input type="checkbox" '+(m.eat[i]?"checked":"")+' data-eat="'+i+'" aria-label="אכלתי"><div class="body"><b>'+M.t+'</b><div class="chips">'+
      M.opts.map(function(o,oi){return '<button class="chip '+(s===oi?"on":"")+'" data-opt="'+i+'_'+oi+'">'+o.n+' <small>· ~'+o.k+' קל׳ · '+o.p+' גר׳ חלבון</small></button>'}).join("")+'</div></div></div></div>';
   });
+  h+='<div class="card"><h2>ארוחה חופשית</h2><div class="small">אכלת משהו אחר מהאפשרויות? כתוב מה אכלת והוסף קלוריות וחלבון בערך. אפשר להעתיק שאלה ל־Claude, לקבל הערכה ולהדביק את המספרים.</div>'+
+   '<label class="f">מה אכלת</label><textarea id="ft" rows="2" placeholder="למשל: שווארמה בפיתה, חצי מנה צ׳יפס"></textarea>'+
+   '<div class="grid" style="margin-top:6px"><div><label class="f">קלוריות (בערך)</label><input type="number" id="fk" inputmode="numeric"></div><div><label class="f">חלבון (גר׳)</label><input type="number" id="fp" inputmode="numeric"></div></div>'+
+   '<div class="row" style="margin-top:8px"><button class="btn" data-addfree="1">הוסף</button><button class="btn sec" data-askc="1">העתק שאלה ל־Claude</button></div><div class="small" id="fmsg"></div>'+
+   ((m.free&&m.free.length)?'<table style="margin-top:8px">'+m.free.map(function(f,i){return '<tr><td>'+esc(f.t||"ארוחה חופשית")+'</td><td>'+(f.k||0)+' קל׳</td><td>'+(f.p||0)+' גר׳</td><td><button class="flag" data-delfree="'+i+'">מחק</button></td></tr>'}).join("")+'</table>':'')+'</div>';
   h+='<div class="card"><div class="meal"><input type="checkbox" '+(m.water?"checked":"")+' data-chk="water"><div>שתיתי 2.5–3 ליטר מים</div></div>'+
      '<div class="meal" style="margin-top:8px"><input type="checkbox" '+(m.creatine?"checked":"")+' data-chk="creatine"><div>קראטין 5 גר׳ (אופציונלי) <span class="small">רלוונטי רק אם החלטת להשתמש</span></div></div></div>';
   h+='<div class="info">בוקר מהיר = השייק. ביום מנוחה אפשר לדלג על הארוחה הביניים ולהגדיל מעט את הפחמימה בצהריים ובערב. אם חסרות קלוריות: כף שמן זית, חופן אגוזים או פרוסת לחם נוספת.</div>';
@@ -495,10 +501,13 @@ function render(){
 
 /* ===================== אירועים ===================== */
 document.addEventListener("click",function(e){
-  var t=e.target.closest("[data-tab],[data-next],[data-week],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
+  var t=e.target.closest("[data-tab],[data-next],[data-addfree],[data-delfree],[data-askc],[data-week],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
   if(!t)return;
   var D=t.dataset;
   if(D.tab){UI.tab=D.tab;render();window.scrollTo(0,0);return}
+  if(D.addfree!==undefined){var ft=document.getElementById("ft").value.trim(),fk=parseFloat(document.getElementById("fk").value),fp=parseFloat(document.getElementById("fp").value);if(!ft&&isNaN(fk)&&isNaN(fp))return;var mm=meal(UI.date);(mm.free||(mm.free=[])).push({t:ft,k:isNaN(fk)?0:fk,p:isNaN(fp)?0:fp});save();render();return}
+  if(D.delfree!==undefined){var m2=meal(UI.date);if(m2.free){m2.free.splice(+D.delfree,1);save();render()}return}
+  if(D.askc!==undefined){var tx=document.getElementById("ft").value.trim(),mg=document.getElementById("fmsg");if(!tx){mg.textContent="כתוב קודם מה אכלת";return}var q="תעריך בערך קלוריות וחלבון לארוחה הבאה (בכמויות ממוצעות אם לא צוין): "+tx+". תענה בקצרה: קלוריות ~X, חלבון ~Y גרם.";var ok=false;try{navigator.clipboard.writeText(q).then(function(){mg.textContent="הועתק. הדבק ב־Claude ואז הזן את המספרים כאן."},function(){mg.textContent="לא הצלחתי להעתיק. הנה הטקסט: "+q});ok=true}catch(x){}if(!ok)mg.textContent="הנה הטקסט להעתקה: "+q;return}
   if(D.next){var q=D.next.split("_");UI.week=+q[0];UI.day=+q[1];UI.tab="workout";render();window.scrollTo(0,0);return}
   if(D.week!==undefined){UI.week=+D.week;render();return}
   if(D.day!==undefined){UI.day=+D.day;render();return}
