@@ -108,6 +108,20 @@ nav button.on::after{content:"";position:absolute;bottom:0;left:30%;right:30%;he
 #splash .g{direction:ltr;font-size:12px;letter-spacing:6px;color:var(--mute);display:flex;align-items:center;gap:10px}
 #splash .g i{display:block;width:34px;height:2px;background:var(--acc);box-shadow:var(--glow)}
 @keyframes spOut{to{opacity:0;visibility:hidden}}
+
+/* ===== gradient + fade polish ===== */
+:root{--gc:linear-gradient(160deg,rgba(46,86,200,.34) 0%,rgba(14,27,64,.9) 58%,rgba(8,16,40,.78) 100%);--gb:rgba(95,135,255,.24)}
+nav{margin:0 -12px;padding:8px 12px 18px;background:linear-gradient(180deg,rgba(5,10,28,.98) 0%,rgba(5,10,28,.9) 50%,rgba(5,10,28,0) 100%);border-bottom:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.card{background:var(--gc);border:1px solid var(--gb);box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.07)}
+.daybtn,.chip,.stat,.pill{background:var(--gc);border:1px solid var(--gb);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.daybtn.on{background:linear-gradient(160deg,rgba(255,230,0,.26) 0%,rgba(43,80,255,.32) 60%,rgba(10,20,52,.85) 100%);border-color:var(--acc);box-shadow:0 0 18px rgba(255,230,0,.28),inset 0 1px 0 rgba(255,255,255,.12)}
+.chip.on{background:linear-gradient(160deg,rgba(255,230,0,.22) 0%,rgba(43,80,255,.3) 65%,rgba(10,20,52,.85) 100%);border-color:var(--acc);box-shadow:0 0 14px rgba(255,230,0,.2)}
+.pill.on{background:linear-gradient(135deg,#fff68a 0%,#ffe600 42%,#ffbf00 100%);color:#0a1020;border-color:#fff27a;font-weight:800;box-shadow:0 0 20px rgba(255,230,0,.55),0 4px 14px rgba(255,190,0,.35)}
+.info{background:linear-gradient(145deg,rgba(43,80,255,.4) 0%,rgba(14,27,64,.9) 70%,rgba(8,16,40,.7) 100%);border:1px solid var(--gb);border-right:3px solid var(--acc);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.note{background:linear-gradient(145deg,rgba(255,230,0,.16) 0%,rgba(255,230,0,.05) 60%,rgba(255,230,0,.02) 100%);border:1px solid rgba(255,230,0,.3)}
+input[type=number],input[type=date],input[type=text],textarea,select{background:linear-gradient(180deg,#0c1736 0%,#070e24 100%);border:1px solid var(--gb)}
+.btn.sec{background:var(--gc);border:1px solid var(--gb)}
+.tag{background:linear-gradient(135deg,rgba(255,230,0,.2),rgba(255,230,0,.06))}
 </style>
 </head>
 <body>
