@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070c1a">
+<meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Gym Tracker">
@@ -129,7 +130,7 @@ input[type=number],input[type=date],input[type=text],textarea,select{background:
 <body>
 <div id="splash"><img src="logo-emblem.png" alt=""><div class="t">GYM<b>TRACKER</b></div><div class="g"><i></i>TARGET AND FOCUS<i></i></div></div>
 <div class="wrap">
-  <div class="brand"><img src="logo-emblem.png" alt="GT" width="64" height="64"><div><h1>GYM<b>TRACKER</b></h1><div class="sub">מסה נקייה · 4 שבועות · מותאם לכתפיים ולברך</div></div></div>
+  <div class="brand"><img src="logo-emblem.png" alt="GT" width="64" height="64"><div><h1>GYM<b>TRACKER</b></h1><div class="sub">מסה נקייה · 4 שבועות</div></div></div>
   <nav id="nav"></nav>
   <div id="view"></div>
 </div>
@@ -139,7 +140,7 @@ input[type=number],input[type=date],input[type=text],textarea,select{background:
 var WEEKS=[
  {t:"שבוע 1 · כניסה לעומס",d:"סט ראשון כבד (טופ סט) ב־6–8 חזרות עם 1–2 חזרות ברזרבה, ואחריו סטי ירידה (‎−10%) ל־8–10 חזרות. בתרגילי בידוד: 1–2 חזרות לפני כשל."},
  {t:"שבוע 2 · בנייה",d:"מוסיפים חזרה בכל סט, או 2.5 ק״ג בטופ סט כשהגעת ל־8 חזרות נקיות. עדיין 1–2 ברזרבה."},
- {t:"שבוע 3 · דחיפה",d:"טופ סט ב־RPE 9 (חזרה אחת ברזרבה). בתרגילי בידוד אפשר להגיע לכשל בסט האחרון. ברגליים לא מעלים משקל אם כאב הברך מעל 3 מתוך 10."},
+ {t:"שבוע 3 · דחיפה",d:"טופ סט ב־RPE 9 (חזרה אחת ברזרבה). בתרגילי בידוד אפשר להגיע לכשל בסט האחרון."},
  {t:"שבוע 4 · דילואד והערכה",d:"סט אחד פחות בכל תרגיל, ‎−10–15% במשקל, בלי כשל. בסוף: שקילה, מדידות והחלטה מה נשאר ומה מוחלף."}
 ];
 var DAYS=[
@@ -152,10 +153,10 @@ var DAYS=[
   {g:"C2",n:"פשיטת מרפק בכבל (פושדאון)",en:"Cable triceps rope pushdown",s:3,r:"10–15",h:"מרפקים צמודים לגוף."},
   {g:"D1",n:"פרפר בכבל או במכונה (חזה)",en:"Cable chest fly",s:2,r:"12–15",h:"טווח נוח בלי מתיחה קיצונית של הכתף, מרפק מעט כפוף."},
   {g:"D2",n:"כפיפת פטישים במשקולות",en:"Dumbbell hammer curl",s:3,r:"10–12",h:"בלי נדנוד."},
-  {g:"E1",n:"כפיפת בטן במכונה (ישיבה)",en:"Seated ab crunch machine",s:3,r:"10–15",h:"עם משקל שמאתגר: מכווצים את הבטן ולא מושכים עם הידיים. נשימה החוצה בהתכווצות. בכוונה בישיבה ולא ברכיים על הרצפה, כדי לא להעמיס על הפיקה."}]},
- {id:"d2",t:"יום 2 · רגליים A",s:"עדין לפיקה · ישבן · ירך אחורית",nt:"הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: בשבועיים הראשונים RPE 6–7, בלי טופ סט כבד, ובשבוע 1 מספיקים 2 סטים בכל תרגיל. כאבי שרירים חזקים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון, כדי שהברך תתחמם לפני העומס.",ex:[
-  {n:"לחיצת רגליים בטווח חלקי (עד ~70–90° ברך)",en:"Leg press partial range of motion",s:3,r:"10–12",h:"טמפו איטי, בלי נעילה. הברך בקו האצבעות. אם ההליכה כואבת למחרת – הורד משקל או קצר טווח."},
-  {n:"היפ ת׳ראסט (גשר ישבן עם מוט/משקולת)",en:"Barbell hip thrust",s:4,r:"6–12",h:"טופ סט כבד 6–8 ואז ירידה 10–12. עצירה של שנייה למעלה. התרגיל הכבד הבטוח ביותר לברך."},
+  {g:"E1",n:"כפיפת בטן במכונה (ישיבה)",en:"Seated ab crunch machine",s:3,r:"10–15",h:"עם משקל שמאתגר: מכווצים את הבטן ולא מושכים עם הידיים. נשימה החוצה בהתכווצות. מבצעים בישיבה."}]},
+ {id:"d2",t:"יום 2 · רגליים A",s:"ישבן · ירך אחורית · תאומים",nt:"הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: בשבועיים הראשונים RPE 6–7, בלי טופ סט כבד, ובשבוע 1 מספיקים 2 סטים בכל תרגיל. כאבי שרירים חזקים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון.",ex:[
+  {n:"לחיצת רגליים",en:"Leg press",s:3,r:"10–12",h:"טמפו איטי, בלי נעילה בסוף התנועה."},
+  {n:"היפ ת׳ראסט (גשר ישבן עם מוט/משקולת)",en:"Barbell hip thrust",s:4,r:"6–12",h:"טופ סט כבד 6–8 ואז ירידה 10–12. עצירה של שנייה למעלה."},
   {n:"כפיפת ברך בשכיבה / בישיבה (המסטרינג)",en:"Lying leg curl machine",s:3,r:"10–12",h:"טמפו איטי בירידה."},
   {n:"היפראקסטנשן (גב תחתון) בלי משקל כבד",en:"45 degree back extension hyperextension",s:2,r:"12–15",h:"במקום דדליפט: גוף בלבד או משקולת קלה לחזה."},
   {n:"הרמות תאומים בעמידה",en:"Standing calf raise",s:3,r:"12–15",h:"טווח מלא, עצירה למעלה."},
@@ -170,11 +171,11 @@ var DAYS=[
   {g:"D1",n:"קרוס־אובר בכבל, מגבוה למטה (חזה תחתון)",en:"High to low cable crossover",s:2,r:"12–15",h:"מרפקים מעט כפופים, הידיים נפגשות מול הבטן התחתונה."},
   {g:"D2",n:"סופר־סט: כפיפת מרפק בכבל + פשיטת מרפק בחבל",en:"Cable biceps curl",s:3,r:"10–15",h:"בלי מנוחה בין שני התרגילים, מנוחה 90 שנ׳ אחרי הזוג."},
   {g:"E1",n:"הרמת ברכיים בכיסא קפטן (בטן תחתונה)",en:"Captain's chair knee raise",s:3,r:"10–15",h:"נשענים על האמות, בלי נדנוד. מרימים את האגן מעט בסוף התנועה. אם אין כיסא קפטן, אפשר הרמת רגליים שכיבה על ספסל."}]},
- {id:"d4",t:"יום 4 · רגליים B + ליבה (מומלץ, אפשר לדלג)",s:"עומס מינימלי על הפיקה · ליבה",nt:"אימון קצר ואופציונלי. בשבועיים הראשונים כמעט רק תנועה: 2 סטים בכל תרגיל, משקל קל. אם עברת את יום 2 בלי כאב בהליכה למחרת – מוסיפים סט.",ex:[
-  {n:"גובלט סקוואט עד ספסל גבוה (עומק קטן)",en:"Goblet box squat",s:2,r:"8–12",h:"משקל קל, RPE 6–7, טמפו איטי. מטרתו תנועה ולא עומס. אם הברך כואבת – החלף בגשר ישבן נוסף."},
+ {id:"d4",t:"יום 4 · רגליים B + ליבה (מומלץ, אפשר לדלג)",s:"ישבן · ירך אחורית · ליבה",nt:"אימון קצר ואופציונלי. בשבועיים הראשונים כמעט רק תנועה: 2 סטים בכל תרגיל, משקל קל. אם עברת את יום 2 בקלות – מוסיפים סט.",ex:[
+  {n:"גובלט סקוואט עד ספסל גבוה (עומק קטן)",en:"Goblet box squat",s:2,r:"8–12",h:"משקל קל, RPE 6–7, טמפו איטי. מטרתו תנועה ולא עומס."},
   {n:"גשר ישבן חד־רגלי",en:"Single leg glute bridge",s:3,r:"10 לצד",h:"אפשר גם עם משקולת על האגן."},
   {n:"כפיפת ברך בישיבה",en:"Seated leg curl machine",s:3,r:"12–15",h:"אחרי יום 2 – אפשר להפחית משקל."},
-  {n:"אבדוקשן ירך במכונה",en:"Hip abduction machine",s:2,r:"15",h:"יציבות ירך לטובת הברך."},
+  {n:"אבדוקשן ירך במכונה",en:"Hip abduction machine",s:2,r:"15",h:"יציבות ירך."},
   {n:"הרמות תאומים בישיבה",en:"Seated calf raise",s:3,r:"15",h:""},
   {n:"דד־באג או Pallof press בכבל",en:"Dead bug exercise",s:3,r:"10 לצד",h:"ליבה יציבה בלי עומס על הצוואר."}]}
 ];
@@ -238,7 +239,7 @@ function save(){
 
 /* ===================== עזרים ===================== */
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function wk(w,d){var k="w"+w+d;return S.w[k]||(S.w[k]={sets:{},done:false,date:"",knee:"",sh:"",note:""})}
+function wk(w,d){var k="w"+w+d;return S.w[k]||(S.w[k]={sets:{},done:false,date:"",sh:"",note:""})}
 function prevVal(w,d,ei,si,key){
   for(var x=w-1;x>=0;x--){var o=S.w["w"+x+DAYS[d].id];if(o&&o.sets[ei+"_"+si]&&o.sets[ei+"_"+si][key])return o.sets[ei+"_"+si][key]}
   return ""
@@ -287,8 +288,6 @@ function vWorkout(){
     h+='<button class="flag '+(fl?"on":"")+'" data-flag="'+key+'">'+(fl?"⚠ סומן כלא מתאים (לחץ לביטול)":"סמן כלא נוח / לא מתאים")+'</button></div>';
   });
   h+='<h3>איך הרגשת?</h3><div class="grid">'+
-    '<div><label class="f">כאב ברך באימון (0–10)</label>'+sel("knee",rec.knee)+'</div>'+
-    '<div><label class="f">כאב ברך בהליכה למחרת (0–10)</label>'+sel("knee2",rec.knee2)+'</div>'+
     '<div><label class="f">אי נוחות כתף (0–10)</label>'+sel("sh",rec.sh)+'</div></div>'+
     '<label class="f">הערות</label><textarea rows="2" data-note="1" placeholder="מה עבד, מה לא, אנרגיה, שינה...">'+esc(rec.note)+'</textarea>';
   h+='<div style="margin-top:12px"><button class="btn" data-done="1">'+(rec.done?"✓ האימון סומן כבוצע (לחץ לביטול)":"סיימתי את האימון")+'</button>'+(rec.date?' <span class="small">'+fmtD(rec.date)+'</span>':'')+'</div></div>';
@@ -364,8 +363,8 @@ function weekAvg(){
   return {first:avg(f),last:avg(l),days:days};
 }
 function vProgress(){
-  var done=0,total=WEEKS.length*3,flags=[],kn=[],kn2=[],sh=[];
-  WEEKS.forEach(function(_,w){DAYS.forEach(function(d){var r=S.w["w"+w+d.id];if(r){if(r.done)done++;if(r.knee!=="")kn.push(+r.knee);if(r.knee2!==undefined&&r.knee2!=="")kn2.push(+r.knee2);if(r.sh!=="")sh.push(+r.sh)}})});
+  var done=0,total=WEEKS.length*3,flags=[],sh=[];
+  WEEKS.forEach(function(_,w){DAYS.forEach(function(d){var r=S.w["w"+w+d.id];if(r){if(r.done)done++;if(r.sh!=="")sh.push(+r.sh)}})});
   Object.keys(S.flags).forEach(function(k){if(S.flags[k]){var d=DAYS.filter(function(x){return k.indexOf(x.id)===0})[0],ei=+k.slice(d.id.length+1);flags.push(d.ex[ei].n+' <span class="small">('+d.t.split(" · ")[0]+')</span>')}});
   var mealDays=Object.keys(S.m).filter(function(d){return Object.keys(S.m[d].eat).some(function(i){return S.m[d].eat[i]})}).length;
   var wa=weekAvg();
@@ -389,7 +388,7 @@ function vProgress(){
   if(S.ms.length)h+='<table style="margin-top:8px"><tr><th>תאריך</th><th>מותן</th><th>חזה</th><th>זרוע</th><th>ירך</th><th></th></tr>'+S.ms.slice().sort(function(x,y){return x.d<y.d?-1:1}).map(function(x){return '<tr><td>'+fmtD(x.d)+'</td><td>'+(x.w||"–")+'</td><td>'+(x.c||"–")+'</td><td>'+(x.a||"–")+'</td><td>'+(x.t||"–")+'</td><td><button class="flag" data-delms="'+x.d+'">מחק</button></td></tr>'}).join("")+'</table>';
   h+='</div>';
   h+=vLifts();
-  h+='<div class="card"><h2>סיכום למידה</h2><div class="grid"><div class="stat"><b>'+mx(kn)+'</b><span>שיא כאב ברך באימון</span></div><div class="stat"><b>'+mx(kn2)+'</b><span>שיא כאב ברך בהליכה למחרת</span></div><div class="stat"><b>'+mx(sh)+'</b><span>שיא אי נוחות כתף</span></div></div>'+
+  h+='<div class="card"><h2>סיכום למידה</h2><div class="grid"><div class="stat"><b>'+mx(sh)+'</b><span>שיא אי נוחות כתף</span></div></div>'+
    '<h3>תרגילים שסומנו כלא מתאימים</h3>'+(flags.length?'<ul>'+flags.map(function(f){return '<li>'+f+'</li>'}).join("")+'</ul><div class="small">בסוף החודש נחליף אותם בחלופה.</div>':'<div class="small">אין עדיין.</div>')+'</div>';
   h+='<div class="card"><h2>גיבוי</h2><div class="small">הנתונים נשמרים אוטומטית. לגיבוי נוסף: העתק את הטקסט ושמור אותו אצלך; לשחזור הדבק והחל.</div><textarea id="bk" rows="3"></textarea><div class="row" style="margin-top:6px"><button class="btn sec" data-export="1">הצג והעתק גיבוי</button><button class="btn sec" data-import="1">שחזר מהטקסט</button></div><div class="small" id="bkmsg"></div></div>';
   return h;
@@ -412,10 +411,9 @@ function vLifts(){
   return '<div class="card"><h2>עומס בתרגילים המרכזיים</h2><div class="small">הטופ סט הכבד ביותר בכל שבוע (ק״ג × חזרות).</div><table><tr><th>תרגיל</th><th>ש׳1</th><th>ש׳2</th><th>ש׳3</th><th>ש׳4</th></tr>'+rows.join("")+'</table></div>';
 }
 function vGuide(){
-  return '<div class="card"><h2>עקרונות לכתפיים ולברך</h2><ul>'+
+  return '<div class="card"><h2>עקרונות לכתפיים</h2><ul>'+
    '<li><b>כתפיים:</b> אין לחיצות מעל הראש ואין דיפס. לחיצת חזה משופעת רק עד 30°, הרמות צד מותרות, יש גם פרפר אחורי ומשיכות לחיזוק היציבות.</li>'+
-   '<li><b>ברך שמאל (בייפרטייט פטלה):</b> העומס על הפיקה הוא מה שמכאיב, ולכן הרגליים מבוססות על ישבן וירך אחורית, ולחיצת רגליים רק בטווח חלקי. אין דדליפט, לאנג׳ים, סקוואט כבד או הרחבת ברך.</li>'+
-   '<li><b>כלל הליכה:</b> אם למחרת הכאב בהליכה 3 ומעלה – באימון הרגליים הבא מורידים כ־20% במשקל ומקצרים טווח. 5 ומעלה, או כאב שנמשך יותר מ־48 שעות – מדלגים על לחיצת הרגליים והסקוואט עד שהוא יורד.</li>'+
+   '<li><b>הנחיות כלליות:</b> התוכנית בלי דדליפט.</li>'+
    '<li><b>סולם כאב:</b> עד 3 מתוך 10 – ממשיכים בזהירות. 4–5 – מורידים משקל או מקצרים טווח. מעל 5 או כאב חד – עוצרים את התרגיל ומחליפים אותו. כאב שנמשך אחרי האימון – כדאי פיזיותרפיסט.</li></ul></div>'+
    '<div class="card"><h2>איך מתקדמים</h2><ul><li><b>טופ סט + ירידה:</b> בתרגילים המרכזיים (4 סטים) הסט הראשון כבד, 6–8 חזרות עם 1–2 ברזרבה. שאר הסטים ב־10% פחות משקל ל־8–10 חזרות.</li>'+
    '<li><b>מתי מעלים:</b> כשהטופ סט עבר 8 חזרות נקיות – 2.5 ק״ג (ליד, במשקולות) או 5 ק״ג (בכבל). בתרגילי בידוד קטנים 1–2.5 ק״ג או חזרה נוספת.</li>'+
@@ -426,12 +424,12 @@ function vGuide(){
    '<li>חלבון ~140 גר׳ (כ־2 גר׳ לק״ג) ב־4 ארוחות. שומן ~70, השאר פחמימות, בעיקר סביב האימון.</li>'+
    '<li>אם אתה לא סופר קלוריות: בשבועיים הראשונים אוכלים לפי הארוחות בתפריט, בלי לספור, ושוקלים 3 פעמים בשבוע. הממוצע קובע אם מוסיפים או מורידים.</li>'+
    '<li>בוקר פשוט: שייק אחד בלנדר, 2 דקות. כל ארוחה אחרת ניתנת להחלפה בשייק אם אין זמן.</li></ul></div>'+
-   '<div class="card"><h2>אירובי והליכה</h2><ul><li>אירובי אינו חובה כדי לעלות במסה. אבל הליכה של 20–30 דקות 2–3 פעמים בשבוע (או כ־7–8 אלף צעדים ביום) עוזרת להתאוששות ולבריאות הלב, ולא פוגעת בעלייה.</li><li>אם ההליכה מכאיבה לברך אחרי אימון רגליים, מדלגים עליה באותו יום ומדווחים בשדה "כאב ברך בהליכה למחרת".</li></ul></div>'+
+   '<div class="card"><h2>אירובי והליכה</h2><ul><li>אירובי אינו חובה כדי לעלות במסה. אבל הליכה של 20–30 דקות 2–3 פעמים בשבוע (או כ־7–8 אלף צעדים ביום) עוזרת להתאוששות ולבריאות הלב, ולא פוגעת בעלייה.</li></ul></div>'+
    '<div class="card"><h2>איך מכווננים אחרי שבועיים</h2><ul>'+
    '<li><b>המשקל לא עלה</b> (ממוצע): מוסיפים ~150 קלוריות (עוד פרוסת לחם, אורז, או שייק).</li>'+
    '<li><b>עלה מעל 0.4 ק״ג בשבוע</b> או שהמותן גדל מעל 1.5 ס״מ: מורידים ~150 קלוריות.</li>'+
    '<li><b>עלה 0.15–0.3 והמותן יציב:</b> לא נוגעים בכלום.</li></ul></div>'+
-   '<div class="note">זו תוכנית כללית ואינה תחליף לייעוץ רפואי או פיזיותרפי. עם רגישות בכתף ובברך, אם יש כאב שחוזר או מחמיר – כדאי לבדוק עם איש מקצוע. תוצאות בחודש אחד הן בעיקר ללמידה: מה הגוף שלך אוהב.</div>';
+   '<div class="note">זו תוכנית כללית ואינה תחליף לייעוץ רפואי או פיזיותרפי. אם יש כאב שחוזר או מחמיר – כדאי לבדוק עם איש מקצוע. תוצאות בחודש אחד הן בעיקר ללמידה: מה הגוף שלך אוהב.</div>';
 }
 
 function iso(d){var x=new Date(d.getTime());x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)}
