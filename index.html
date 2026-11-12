@@ -122,6 +122,8 @@ nav{margin:0 -12px;padding:8px 12px 18px;background:linear-gradient(180deg,rgba(
 input[type=number],input[type=date],input[type=text],textarea,select{background:linear-gradient(180deg,#0c1736 0%,#070e24 100%);border:1px solid var(--gb)}
 .btn.sec{background:var(--gc);border:1px solid var(--gb)}
 .tag{background:linear-gradient(135deg,rgba(255,230,0,.2),rgba(255,230,0,.06))}
+.freeit{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px dashed var(--gb);margin-top:8px;padding-top:6px;font-size:14px}
+.freeit span:last-child{color:var(--acc);white-space:nowrap;font-size:13px}
 </style>
 </head>
 <body>
@@ -313,17 +315,25 @@ function vFood(){
   MEALS.forEach(function(M,i){
     var s=m.sel[i]||0;
     h+='<div class="card"><div class="meal"><input type="checkbox" '+(m.eat[i]?"checked":"")+' data-eat="'+i+'" aria-label="אכלתי"><div class="body"><b>'+M.t+'</b><div class="chips">'+
-     M.opts.map(function(o,oi){return '<button class="chip '+(s===oi?"on":"")+'" data-opt="'+i+'_'+oi+'">'+o.n+' <small>· ~'+o.k+' קל׳ · '+o.p+' גר׳ חלבון</small></button>'}).join("")+'</div></div></div></div>';
+     M.opts.map(function(o,oi){return '<button class="chip '+(s===oi?"on":"")+'" data-opt="'+i+'_'+oi+'">'+o.n+' <small>· ~'+o.k+' קל׳ · '+o.p+' גר׳ חלבון</small></button>'}).join("")+'</div>'+freeFor(m,i)+'</div></div></div>';
   });
   h+='<div class="card"><h2>ארוחה חופשית</h2><div class="small">אכלת משהו אחר מהאפשרויות? כתוב מה אכלת והוסף קלוריות וחלבון בערך. אפשר להעתיק שאלה ל־Claude, לקבל הערכה ולהדביק את המספרים.</div>'+
-   '<label class="f">מה אכלת</label><textarea id="ft" rows="2" placeholder="למשל: שווארמה בפיתה, חצי מנה צ׳יפס"></textarea>'+
+   '<label class="f">מה אכלת</label><textarea id="ft" rows="2" placeholder="למשל: שווארמה בפיתה, חצי מנה צ׳יפס"></textarea>'+'<label class="f">שייך לארוחה</label><select id="fs">'+slotOpts()+'</select>'+
    '<div class="grid" style="margin-top:6px"><div><label class="f">קלוריות (בערך)</label><input type="number" id="fk" inputmode="numeric"></div><div><label class="f">חלבון (גר׳)</label><input type="number" id="fp" inputmode="numeric"></div></div>'+
    '<div class="row" style="margin-top:8px"><button class="btn" data-addfree="1">הוסף</button><button class="btn sec" data-askc="1">העתק שאלה ל־Claude</button></div><div class="small" id="fmsg"></div>'+
-   ((m.free&&m.free.length)?'<table style="margin-top:8px">'+m.free.map(function(f,i){return '<tr><td>'+esc(f.t||"ארוחה חופשית")+'</td><td>'+(f.k||0)+' קל׳</td><td>'+(f.p||0)+' גר׳</td><td><button class="flag" data-delfree="'+i+'">מחק</button></td></tr>'}).join("")+'</table>':'')+'</div>';
+   ((m.free&&m.free.some(function(f){return f.s===undefined}))?'<table style="margin-top:8px">'+m.free.map(function(f,i){if(f.s!==undefined)return '';return '<tr><td>'+esc(f.t||"ארוחה חופשית")+'</td><td>'+(f.k||0)+' קל׳</td><td>'+(f.p||0)+' גר׳</td><td><button class="flag" data-delfree="'+i+'">מחק</button></td></tr>'}).join("")+'</table>':'')+'</div>';
   h+='<div class="card"><div class="meal"><input type="checkbox" '+(m.water?"checked":"")+' data-chk="water"><div>שתיתי 2.5–3 ליטר מים</div></div>'+
      '<div class="meal" style="margin-top:8px"><input type="checkbox" '+(m.creatine?"checked":"")+' data-chk="creatine"><div>קראטין 5 גר׳ (אופציונלי) <span class="small">רלוונטי רק אם החלטת להשתמש</span></div></div></div>';
   h+='<div class="info">בוקר מהיר = השייק. ביום מנוחה אפשר לדלג על הארוחה הביניים ולהגדיל מעט את הפחמימה בצהריים ובערב. אם חסרות קלוריות: כף שמן זית, חופן אגוזים או פרוסת לחם נוספת.</div>';
   return h;
+}
+function freeFor(m,i){
+  var o="";(m.free||[]).forEach(function(f,x){if(f.s===i)o+='<div class="freeit"><span>🍴 '+esc(f.t||"ארוחה חופשית")+'</span><span>'+(f.k||0)+' קל׳ · '+(f.p||0)+' גר׳ <button class="flag" data-delfree="'+x+'">מחק</button></span></div>'});
+  return o;
+}
+function slotOpts(){
+  var h=new Date().getHours(),d=h<11?0:h<15?1:h<18?2:h<22?3:4;
+  return MEALS.map(function(M,i){return '<option value="'+i+'"'+(i===d?" selected":"")+'>'+M.t.split(" · ")[0].split(" / ")[0]+'</option>'}).join("");
 }
 function bar(r){r=Math.max(0,Math.min(1,r));return '<div class="bar"><i style="width:'+Math.round(r*100)+'%"></i></div>'}
 
@@ -505,7 +515,7 @@ document.addEventListener("click",function(e){
   if(!t)return;
   var D=t.dataset;
   if(D.tab){UI.tab=D.tab;render();window.scrollTo(0,0);return}
-  if(D.addfree!==undefined){var ft=document.getElementById("ft").value.trim(),fk=parseFloat(document.getElementById("fk").value),fp=parseFloat(document.getElementById("fp").value);if(!ft&&isNaN(fk)&&isNaN(fp))return;var mm=meal(UI.date);(mm.free||(mm.free=[])).push({t:ft,k:isNaN(fk)?0:fk,p:isNaN(fp)?0:fp});save();render();return}
+  if(D.addfree!==undefined){var ft=document.getElementById("ft").value.trim(),fk=parseFloat(document.getElementById("fk").value),fp=parseFloat(document.getElementById("fp").value);if(!ft&&isNaN(fk)&&isNaN(fp))return;var mm=meal(UI.date);(mm.free||(mm.free=[])).push({t:ft,k:isNaN(fk)?0:fk,p:isNaN(fp)?0:fp,s:+document.getElementById("fs").value});save();render();return}
   if(D.delfree!==undefined){var m2=meal(UI.date);if(m2.free){m2.free.splice(+D.delfree,1);save();render()}return}
   if(D.askc!==undefined){var tx=document.getElementById("ft").value.trim(),mg=document.getElementById("fmsg");if(!tx){mg.textContent="כתוב קודם מה אכלת";return}var q="תעריך בערך קלוריות וחלבון לארוחה הבאה (בכמויות ממוצעות אם לא צוין): "+tx+". תענה בקצרה: קלוריות ~X, חלבון ~Y גרם.";var ok=false;try{navigator.clipboard.writeText(q).then(function(){mg.textContent="הועתק. הדבק ב־Claude ואז הזן את המספרים כאן."},function(){mg.textContent="לא הצלחתי להעתיק. הנה הטקסט: "+q});ok=true}catch(x){}if(!ok)mg.textContent="הנה הטקסט להעתקה: "+q;return}
   if(D.next){var q=D.next.split("_");UI.week=+q[0];UI.day=+q[1];UI.tab="workout";render();window.scrollTo(0,0);return}
