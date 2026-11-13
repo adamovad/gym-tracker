@@ -145,10 +145,10 @@ var WEEKS=[
 ];
 var DAYS=[
  {id:"d1",t:"יום 1 · עליון A",s:"חזה · גב · כתף צדית · זרועות",ex:[
-  {g:"A1",n:"לחיצת חזה במשקולות, ספסל משופע 30° בלבד",en:"Low incline dumbbell bench press (30 degrees)",s:4,r:"6–10",st:"22.5",m:1,h:"טופ סט כבד 6–8, אחריו סטי ירידה 8–10. פתיחה מוצעת: 22.5 ק״ג ליד (השיא שלך 25×8). מרפקים ~45°."},
-  {g:"A2",n:"משיכה עליונה (פולי) באחיזה ניטרלית או רחבה",en:"Lat pulldown neutral grip",s:4,r:"6–10",st:"65",m:1,h:"טופ סט כבד 6–8, אחריו ירידה 8–10. פתיחה מוצעת: 65 ק״ג (אתה בין 60 ל־70). בלי נדנוד."},
+  {g:"A1",n:"לחיצת חזה במשקולות, ספסל משופע 30° בלבד",en:"Low incline dumbbell bench press (30 degrees)",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו סטי ירידה 8–10. מרפקים ~45°."},
+  {g:"A2",n:"משיכה עליונה (פולי) באחיזה ניטרלית או רחבה",en:"Lat pulldown neutral grip",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו ירידה 8–10. בלי נדנוד."},
   {g:"B1",n:"לחיצת חזה במכונה, ישיבה (אחיזה ניטרלית אם יש)",en:"Seated machine chest press",s:3,r:"8–12",h:"נפח נוסף אחרי הלחיצה הכבדה. בלי לנעול מרפקים."},
-  {g:"B2",n:"חתירה בכבל בישיבה",en:"Seated cable row",s:3,r:"8–12",st:"50",m:1,h:"פתיחה: 50 ק״ג ל־10–12. כשאתה מגיע ל־12 בכל הסטים – 55. עצירה של שנייה בהתכווצות."},
+  {g:"B2",n:"חתירה בכבל בישיבה",en:"Seated cable row",s:3,r:"8–12",h:"עצירה של שנייה בהתכווצות. כשאתה מגיע ל־12 בכל הסטים – מעלים משקל."},
   {g:"C1",n:"הרמות צד במשקולות / בכבל",en:"Dumbbell lateral raise",s:3,r:"12–15",h:"עד גובה הכתף בלבד."},
   {g:"C2",n:"פשיטת מרפק בכבל (פושדאון)",en:"Cable triceps rope pushdown",s:3,r:"10–15",h:"מרפקים צמודים לגוף."},
   {g:"D1",n:"פרפר בכבל או במכונה (חזה)",en:"Cable chest fly",s:2,r:"12–15",h:"טווח נוח בלי מתיחה קיצונית של הכתף, מרפק מעט כפוף."},
@@ -162,7 +162,7 @@ var DAYS=[
   {n:"הרמות תאומים בעמידה",en:"Standing calf raise",s:3,r:"12–15",h:"טווח מלא, עצירה למעלה."},
   {n:"פלאנק",en:"Plank",s:3,r:"30–45 שנ׳",h:"גוף ישר, בלי שקיעה בגב. אפשר לרשום שניות במקום חזרות."}]},
  {id:"d3",t:"יום 3 · עליון B",s:"חזה · גב · כתף אחורית · זרועות",ex:[
-  {g:"A1",n:"לחיצת חזה במכונה / משקולות על ספסל שטוח",en:"Flat dumbbell bench press",s:4,r:"6–10",st:"32.5",m:1,h:"פתיחה: 32.5 ק״ג לצד (היום 30×8) ל־6–8 חזרות בטופ סט, ואז ירידה."},
+  {g:"A1",n:"לחיצת חזה במכונה / משקולות על ספסל שטוח",en:"Flat dumbbell bench press",s:4,r:"6–10",h:"טופ סט כבד 6–8 חזרות, ואז ירידה."},
   {g:"A2",n:"משיכה עליונה אחיזה צרה ניטרלית (או מתח בסיוע)",en:"Close grip neutral lat pulldown",s:3,r:"6–10",h:"אם המתח לא נוח לכתף – פולי."},
   {g:"B1",n:"לחיצת חזה משופעת במכונה או בסמית׳ (זווית נמוכה)",en:"Low incline smith machine press",s:3,r:"8–12",h:"זווית של עד 30°, לא יותר."},
   {g:"B2",n:"חתירה נתמכת חזה (מכונה / משקולות)",en:"Chest supported row",s:3,r:"10–12",h:"הגב מוגן, הטכניקה נקייה."},
@@ -207,7 +207,7 @@ var LS="fit_tracker_v1";
 function blank(){return {ts:0,w:{},m:{},bw:[],ms:[],flags:{}}}
 function loadLocal(){try{var j=localStorage.getItem(LS);if(j){var o=JSON.parse(j);return Object.assign(blank(),o)}}catch(e){}return blank()}
 var S=loadLocal(), dbRef=null, tmr=null;
-var UI={tab:"home",week:0,day:0,date:today(),msg:""};
+var UI={sub:null,tab:"home",week:0,day:0,date:today(),msg:""};
 function today(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
 function save(){
   S.ts=Date.now();
@@ -239,11 +239,15 @@ function save(){
 
 /* ===================== עזרים ===================== */
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function wk(w,d){var k="w"+w+d;return S.w[k]||(S.w[k]={sets:{},done:false,date:"",sh:"",note:""})}
+function wk(w,d){var k="w"+w+d;return S.w[k]||(S.w[k]={sets:{},done:false,date:"",sh:"",note:"",ex:{}})}
+function exName(rec,d,ei){return (rec&&rec.ex&&rec.ex[ei])||DAYS[d].ex[ei].n}
 function prevVal(w,d,ei,si,key){
-  for(var x=w-1;x>=0;x--){var o=S.w["w"+x+DAYS[d].id];if(o&&o.sets[ei+"_"+si]&&o.sets[ei+"_"+si][key])return o.sets[ei+"_"+si][key]}
+  var cur=exName(S.w["w"+w+DAYS[d].id],d,ei);
+  for(var x=w-1;x>=0;x--){var o=S.w["w"+x+DAYS[d].id];if(o&&o.sets[ei+"_"+si]&&o.sets[ei+"_"+si][key]&&exName(o,d,ei)===cur)return o.sets[ei+"_"+si][key]}
   return ""
 }
+var ALTS=["לחיצת חזה במשקולות, ספסל שטוח","לחיצת חזה במשקולות, ספסל משופע","לחיצת חזה במכונה משופעת","לחיצת חזה בסמית׳","משיכה עליונה אחיזה רחבה","משיכה עליונה אחיזה ניטרלית","חתירה במשקולת","חתירה במכונה","הרמות צד במכונה","פרפר במכונה (Pec Deck)","פרפר בכבל","כפיפת מרפק במשקולות","כפיפת מרפק בכבל","פשיטת מרפק בכבל","פשיטת מרפק במשקולת","לחיצת רגליים","גשר ישבן","כפיפת בטן בכבל","הרמת רגליים שכיבה"];
+function exList(){var a=ALTS.slice();DAYS.forEach(function(d){d.ex.forEach(function(e){if(a.indexOf(e.n)<0)a.push(e.n)})});return '<datalist id="exlist">'+a.map(function(x){return '<option value="'+esc(x)+'"></option>'}).join("")+'</datalist>'}
 function meal(date){return S.m[date]||(S.m[date]={train:true,sel:{},eat:{},water:false,creatine:false})}
 function fmtD(s){var p=s.split("-");return p[2]+"/"+p[1]}
 
@@ -269,23 +273,28 @@ function vWorkout(){
     var done=wk(UI.week,d.id).done;
     return '<button class="daybtn '+(UI.day===i?"on":"")+'" data-day="'+i+'">'+(done?'<span class="ck">✓</span>':'')+'<b>'+d.t.split(" · ")[0]+' · '+d.t.split(" · ")[1].split(" (")[0]+'</b><small>'+d.s+'</small></button>'}).join("")+'</div>';
   var D=DAYS[UI.day], rec=wk(UI.week,D.id);
-  h+='<div class="card"><h2>'+D.t+'</h2>';
+  if(UI.sub&&UI.sub.indexOf(UI.week+"_"+UI.day+"_")!==0)UI.sub=null;
+  if(!rec.ex)rec.ex={};
+  h+=exList()+'<div class="card"><h2>'+D.t+'</h2>';
   if(D.nt)h+='<div class="info">'+D.nt+'</div>';
   if(UI.day===3)h+='<div class="small">מינימום 3 אימונים בשבוע. יום 4 מתווסף כשיש כוח וזמן.</div>';
   h+='<div class="note">יעד: 45–60 דקות. חימום קצר (5 דק׳): אופניים או הליכה, סיבובי כתף עם גומייה, סט חימום קל בתרגיל הראשון.'+(D.ex[0].g?' תרגילים עם אותה אות (A1 ו־A2) עושים לסירוגין: סט, 60–90 שנ׳ מנוחה, סט של השני, וחוזרים.':' מנוחה: 90–120 שנ׳ בתרגילים המורכבים, 60 שנ׳ בשאר.')+'</div>';
   D.ex.forEach(function(e,ei){
-    var key=D.id+"e"+ei, fl=S.flags[key];
-    h+='<div class="ex"><div class="exh"><div><b>'+(e.g||(ei+1)+'.')+' '+e.n+'</b></div><span class="tag">'+e.s+'×'+e.r+'</span></div>';
-    if(e.h)h+='<div class="hint">'+e.h+'</div>';
-    if(e.en)h+='<div class="hint"><a class="vid" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(e.en+' how to')+'">▶ איך עושים? </a><span dir="ltr">'+e.en+'</span></div>';
+    var key=D.id+"e"+ei, fl=S.flags[key], nm=exName(rec,UI.day,ei), rpl=nm!==e.n, subKey=UI.week+"_"+UI.day+"_"+ei;
+    h+='<div class="ex"><div class="exh"><div><b>'+(e.g||(ei+1)+'.')+' '+esc(nm)+'</b>'+(rpl?'<div class="hint" style="margin:0">הוחלף · במקום: '+e.n+'</div>':'')+'</div><span class="tag">'+e.s+'×'+e.r+'</span></div>';
+    if(e.h&&!rpl)h+='<div class="hint">'+e.h+'</div>';
+    if(rpl)h+='<div class="hint"><a class="vid" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(nm+' how to')+'">▶ איך עושים? </a></div>';
+    if(e.en&&!rpl)h+='<div class="hint"><a class="vid" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(e.en+' how to')+'">▶ איך עושים? </a><span dir="ltr">'+e.en+'</span></div>';
     for(var si=0;si<e.s;si++){
       var st=rec.sets[ei+"_"+si]||{};
       h+='<div class="set"><span class="n">סט '+(si+1)+'</span>'+
-        '<input type="number" inputmode="decimal" step="0.5" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"w")||e.st||'ק״ג')+'" value="'+esc(st.w||"")+'" data-set="'+ei+'_'+si+'" data-k="w">'+
+        '<input type="number" inputmode="decimal" step="0.5" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"w")||'ק״ג')+'" value="'+esc(st.w||"")+'" data-set="'+ei+'_'+si+'" data-k="w">'+
         '<input type="number" inputmode="numeric" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"r")||'חזרות')+'" value="'+esc(st.r||"")+'" data-set="'+ei+'_'+si+'" data-k="r">'+
         '<input type="checkbox" '+(st.d?"checked":"")+' data-set="'+ei+'_'+si+'" data-k="d" aria-label="בוצע"></div>';
     }
-    h+='<button class="flag '+(fl?"on":"")+'" data-flag="'+key+'">'+(fl?"⚠ סומן כלא מתאים (לחץ לביטול)":"סמן כלא נוח / לא מתאים")+'</button></div>';
+    h+='<div class="row" style="gap:14px"><button class="flag '+(fl?"on":"")+'" data-flag="'+key+'">'+(fl?"⚠ סומן כלא מתאים (לחץ לביטול)":"סמן כלא נוח / לא מתאים")+'</button><button class="flag" data-sub="'+ei+'">'+(rpl?"שנה את התרגיל שביצעת":"החלפתי תרגיל")+'</button></div>';
+    if(UI.sub===subKey)h+='<div class="info"><label class="f" style="margin-top:0">איזה תרגיל ביצעת בפועל?</label><input type="text" id="subin" list="exlist" value="'+esc(rpl?nm:"")+'" placeholder="הקלד או בחר מהרשימה"><div class="row" style="margin-top:8px"><button class="btn" data-subsave="'+ei+'">שמור</button><button class="btn sec" data-subcancel="1">בטל</button>'+(rpl?'<button class="btn sec" data-subreset="'+ei+'">חזור למקורי</button>':'')+'</div><div class="small" style="margin-top:6px">הסטים שרשמת נשארים. השם בלבד משתנה, והמספרים מהשבוע הקודם יוצגו רק אם ביצעת אותו תרגיל.</div></div>';
+    h+='</div>';
   });
   h+='<h3>איך הרגשת?</h3><div class="grid">'+
     '<div><label class="f">אי נוחות כתף (0–10)</label>'+sel("sh",rec.sh)+'</div></div>'+
@@ -387,28 +396,10 @@ function vProgress(){
    '<div style="margin-top:8px"><button class="btn" data-addms="1">שמור מדידה</button></div>';
   if(S.ms.length)h+='<table style="margin-top:8px"><tr><th>תאריך</th><th>מותן</th><th>חזה</th><th>זרוע</th><th>ירך</th><th></th></tr>'+S.ms.slice().sort(function(x,y){return x.d<y.d?-1:1}).map(function(x){return '<tr><td>'+fmtD(x.d)+'</td><td>'+(x.w||"–")+'</td><td>'+(x.c||"–")+'</td><td>'+(x.a||"–")+'</td><td>'+(x.t||"–")+'</td><td><button class="flag" data-delms="'+x.d+'">מחק</button></td></tr>'}).join("")+'</table>';
   h+='</div>';
-  h+=vLifts();
   h+='<div class="card"><h2>סיכום למידה</h2><div class="grid"><div class="stat"><b>'+mx(sh)+'</b><span>שיא אי נוחות כתף</span></div></div>'+
    '<h3>תרגילים שסומנו כלא מתאימים</h3>'+(flags.length?'<ul>'+flags.map(function(f){return '<li>'+f+'</li>'}).join("")+'</ul><div class="small">בסוף החודש נחליף אותם בחלופה.</div>':'<div class="small">אין עדיין.</div>')+'</div>';
   h+='<div class="card"><h2>גיבוי</h2><div class="small">הנתונים נשמרים אוטומטית. לגיבוי נוסף: העתק את הטקסט ושמור אותו אצלך; לשחזור הדבק והחל.</div><textarea id="bk" rows="3"></textarea><div class="row" style="margin-top:6px"><button class="btn sec" data-export="1">הצג והעתק גיבוי</button><button class="btn sec" data-import="1">שחזר מהטקסט</button></div><div class="small" id="bkmsg"></div></div>';
   return h;
-}
-function vLifts(){
-  var rows=[];
-  DAYS.forEach(function(d){d.ex.forEach(function(e,ei){
-    if(!e.m)return;
-    var cells=WEEKS.map(function(_,w){
-      var r=S.w["w"+w+d.id],b=null;
-      if(r)Object.keys(r.sets).forEach(function(k){
-        if(k.indexOf(ei+"_")!==0)return;
-        var s=r.sets[k],kg=parseFloat(s.w),rp=parseFloat(s.r);
-        if(kg>0&&rp>0&&(!b||kg>b.kg||(kg===b.kg&&rp>b.rp)))b={kg:kg,rp:rp};
-      });
-      return b?b.kg+"×"+b.rp:"–";
-    });
-    rows.push('<tr><td>'+e.n.split(",")[0].split(" (")[0].split(" /")[0]+'</td>'+cells.map(function(c){return '<td>'+c+'</td>'}).join("")+'</tr>');
-  })});
-  return '<div class="card"><h2>עומס בתרגילים המרכזיים</h2><div class="small">הטופ סט הכבד ביותר בכל שבוע (ק״ג × חזרות).</div><table><tr><th>תרגיל</th><th>ש׳1</th><th>ש׳2</th><th>ש׳3</th><th>ש׳4</th></tr>'+rows.join("")+'</table></div>';
 }
 function vGuide(){
   return '<div class="card"><h2>עקרונות לכתפיים</h2><ul>'+
@@ -417,7 +408,7 @@ function vGuide(){
    '<li><b>סולם כאב:</b> עד 3 מתוך 10 – ממשיכים בזהירות. 4–5 – מורידים משקל או מקצרים טווח. מעל 5 או כאב חד – עוצרים את התרגיל ומחליפים אותו. כאב שנמשך אחרי האימון – כדאי פיזיותרפיסט.</li></ul></div>'+
    '<div class="card"><h2>איך מתקדמים</h2><ul><li><b>טופ סט + ירידה:</b> בתרגילים המרכזיים (4 סטים) הסט הראשון כבד, 6–8 חזרות עם 1–2 ברזרבה. שאר הסטים ב־10% פחות משקל ל־8–10 חזרות.</li>'+
    '<li><b>מתי מעלים:</b> כשהטופ סט עבר 8 חזרות נקיות – 2.5 ק״ג (ליד, במשקולות) או 5 ק״ג (בכבל). בתרגילי בידוד קטנים 1–2.5 ק״ג או חזרה נוספת.</li>'+
-   '<li>המספר באפור בשדה הוא מה שעשית בשבוע הקודם בסט הזה, או נקודת הפתיחה המוצעת בשבוע 1. המטרה: לעקוף אותו בחזרה או בקילו.</li>'+
+   '<li>המספר באפור בשדה הוא מה שעשית בשבוע הקודם באותו תרגיל ובאותו סט (אם החלפת תרגיל הוא לא מוצג). המטרה: לעקוף אותו בחזרה או בקילו.</li>'+
    '<li>שבוע 4 הוא דילואד מתוכנן, לא שבוע חלש. הגוף גדל במנוחה, ואחריו נפתח חודש עם משקלים חדשים.</li></ul></div>'+
    '<div class="card"><h2>תזונה: העקרונות</h2><ul>'+
    '<li>מעט עודף: ~2600 קלוריות ביום אימון, ~2400 ביום מנוחה (הערכה מאזן ~2400). זה מכוון לעלייה איטית של 0.15–0.3 ק״ג בשבוע, כדי להישאר חטוב.</li>'+
@@ -511,9 +502,13 @@ function render(){
 
 /* ===================== אירועים ===================== */
 document.addEventListener("click",function(e){
-  var t=e.target.closest("[data-tab],[data-next],[data-addfree],[data-delfree],[data-askc],[data-week],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
+  var t=e.target.closest("[data-tab],[data-sub],[data-subsave],[data-subcancel],[data-subreset],[data-next],[data-addfree],[data-delfree],[data-askc],[data-week],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
   if(!t)return;
   var D=t.dataset;
+  if(D.sub!==undefined){UI.sub=UI.week+"_"+UI.day+"_"+D.sub;render();return}
+  if(D.subsave!==undefined){var sv=document.getElementById("subin").value.trim(),sr=wk(UI.week,DAYS[UI.day].id);if(!sr.ex)sr.ex={};if(sv&&sv!==DAYS[UI.day].ex[+D.subsave].n)sr.ex[D.subsave]=sv;else delete sr.ex[D.subsave];UI.sub=null;save();render();return}
+  if(D.subcancel!==undefined){UI.sub=null;render();return}
+  if(D.subreset!==undefined){var rr=wk(UI.week,DAYS[UI.day].id);if(rr.ex)delete rr.ex[D.subreset];UI.sub=null;save();render();return}
   if(D.tab){UI.tab=D.tab;render();window.scrollTo(0,0);return}
   if(D.addfree!==undefined){var ft=document.getElementById("ft").value.trim(),fk=parseFloat(document.getElementById("fk").value),fp=parseFloat(document.getElementById("fp").value);if(!ft&&isNaN(fk)&&isNaN(fp))return;var mm=meal(UI.date);(mm.free||(mm.free=[])).push({t:ft,k:isNaN(fk)?0:fk,p:isNaN(fp)?0:fp,s:+document.getElementById("fs").value});save();render();return}
   if(D.delfree!==undefined){var m2=meal(UI.date);if(m2.free){m2.free.splice(+D.delfree,1);save();render()}return}
