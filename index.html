@@ -125,12 +125,16 @@ input[type=number],input[type=date],input[type=text],textarea,select{background:
 .tag{background:linear-gradient(135deg,rgba(255,230,0,.2),rgba(255,230,0,.06))}
 .freeit{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px dashed var(--gb);margin-top:8px;padding-top:6px;font-size:14px}
 .freeit span:last-child{color:var(--acc);white-space:nowrap;font-size:13px}
+.rf{margin-right:auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--gb);background:var(--gc);color:var(--acc);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.rf svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rf.spin svg{animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div id="splash"><img src="logo-emblem.png" alt=""><div class="t">GYM<b>TRACKER</b></div><div class="g"><i></i>TARGET AND FOCUS<i></i></div></div>
 <div class="wrap">
-  <div class="brand"><img src="logo-emblem.png" alt="GT" width="64" height="64"><div><h1>GYM<b>TRACKER</b></h1><div class="sub">מסה נקייה · 4 שבועות</div></div></div>
+  <div class="brand"><img src="logo-emblem.png" alt="GT" width="64" height="64"><div><h1>GYM<b>TRACKER</b></h1><div class="sub">מסה נקייה · 4 שבועות</div></div><button id="rf" class="rf" aria-label="רענן גרסה" title="רענן גרסה"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button></div>
   <nav id="nav"></nav>
   <div id="view"></div>
 </div>
@@ -540,6 +544,12 @@ document.addEventListener("change",function(e){
   else if(D.chk){meal(UI.date)[D.chk]=t.checked;save()}
 });
 try{var sp=document.getElementById('splash');if(sp){if(sessionStorage.getItem('sp')){sp.remove()}else{sessionStorage.setItem('sp','1');setTimeout(function(){sp.remove()},2300)}}}catch(e){}
+document.getElementById("rf").addEventListener("click",async function(){
+  this.classList.add("spin");
+  try{if(window.caches){var k=await caches.keys();await Promise.all(k.map(function(x){return caches.delete(x)}))}
+  if(navigator.serviceWorker){var r=await navigator.serviceWorker.getRegistrations();await Promise.all(r.map(function(x){return x.unregister()}))}}catch(e){}
+  location.reload();
+});
 render();
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js')}catch(e){}
