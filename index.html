@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#070c1a">
+<meta name="theme-color" content="#0b1a55">
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -11,142 +11,131 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>תוכנית חודש – מסה נקייה</title>
+<title>Gym Tracker</title>
 <style>
-:root{color-scheme:dark;--bg:#070c1a;--card:#0e1730;--card2:#0a1228;--acc2:#132250;--ink:#f1f4ff;--mute:#9fb0d8;--line:#23325f;--blue:#2b50ff;--blue2:#1b3ad1;--acc:#ffe600;--warn:#ffe600;--warnbg:rgba(255,230,0,.08);--bad:#ff8a8a;--ok:#ffe600;--glow:0 0 16px rgba(255,230,0,.35)}
+:root{color-scheme:light;--bg:#f1f4fb;--card:#fff;--ink:#0e1a3d;--mute:#5c6a8c;--line:#e1e6f2;--blue:#1d3fd8;--navy:#0b1a55;--acc:#ffd60a;--soft:#eef2ff;--bad:#c62828;--sh:0 2px 12px rgba(15,30,90,.07)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:radial-gradient(900px 420px at 50% -80px,#132a66 0%,var(--bg) 62%) fixed,var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
-.wrap{max-width:760px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 12px calc(90px + env(safe-area-inset-bottom))}
-.brand{display:flex;align-items:center;gap:12px;margin:6px 0 12px}
-.brand img{width:64px;height:64px;border-radius:16px;border:1px solid var(--line);box-shadow:0 0 0 1px rgba(43,80,255,.5),0 6px 22px rgba(43,80,255,.35)}
-h1{font-size:24px;margin:0;font-weight:900;font-style:italic;letter-spacing:.5px;direction:ltr;text-align:right;line-height:1.1}
-h1 b{color:var(--acc);text-shadow:0 0 14px rgba(255,230,0,.45)}
-.sub{color:var(--mute);font-size:13px;margin-top:2px}
-nav{position:sticky;top:0;z-index:5;background:rgba(7,12,26,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:8px 0;display:flex;gap:6px}
-nav button{flex:1;padding:10px 4px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
-nav button.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:inset 0 -3px 0 var(--acc)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.5}
+.wrap{max-width:760px;margin:0 auto;padding:0 12px calc(60px + env(safe-area-inset-bottom))}
+.brand{display:flex;align-items:center;gap:12px;margin:0 -12px;padding:max(14px,env(safe-area-inset-top)) 16px 16px;background:linear-gradient(160deg,#1633b8 0%,#0b1a55 75%);border-radius:0 0 24px 24px;color:#fff}
+.brand img{width:58px;height:58px;border-radius:15px;border:1px solid rgba(255,255,255,.25);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+h1{font-size:23px;margin:0;font-weight:900;font-style:italic;letter-spacing:.5px;direction:ltr;text-align:right;line-height:1.1;color:#fff}
+h1 b{color:var(--acc)}
+.sub{color:#b8c6f2;font-size:13px;margin-top:2px}
+.rf{margin-right:auto;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:var(--acc);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.rf svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rf.spin svg{animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+nav{position:sticky;top:0;z-index:5;margin:0 -12px;padding:4px 12px 0;display:flex;gap:0;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav button{flex:1;background:transparent;border:0;padding:8px 2px 9px;font:inherit;font-size:12px;font-weight:600;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;cursor:pointer}
+nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--blue)}
+nav button.on::after{content:"";position:absolute;bottom:0;left:28%;right:28%;height:3px;border-radius:3px 3px 0 0;background:var(--acc)}
+#view{padding-top:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:10px 0;box-shadow:var(--sh)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.pill{padding:8px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;font:inherit;font-size:14px;cursor:pointer}
-.pill.on{background:var(--blue);border-color:var(--acc);color:#fff;font-weight:700}
-.daybtn{flex:1;min-width:140px;text-align:right;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
-.daybtn.on{border-color:var(--acc);background:var(--acc2);box-shadow:var(--glow)}
+.pill{padding:8px 13px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;font:inherit;font-size:14px;cursor:pointer}
+.pill.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:700}
+.daybtn{flex:1;min-width:140px;text-align:right;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--sh)}
+.daybtn.on{border-color:var(--blue);background:var(--soft);box-shadow:0 0 0 2px rgba(29,63,216,.18)}
 .daybtn small{display:block;color:var(--mute)}
-.daybtn .ck{float:left;color:var(--acc);font-weight:900;text-shadow:var(--glow)}
-.note{background:var(--warnbg);border:1px solid rgba(255,230,0,.28);border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
-.info{background:var(--acc2);border-right:3px solid var(--acc);border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
+.daybtn .ck{float:left;color:var(--blue);font-weight:900}
+.row:has(.daybtn){align-items:stretch}
+.note{background:#fff8d9;border:1px solid #f0dc7c;border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
+.info{background:var(--soft);border-right:3px solid var(--blue);border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
 .ex{border-top:1px solid var(--line);padding:12px 0}
 .ex:first-child{border-top:0}
 .exh{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .exh b{font-size:16px}
-.tag{background:rgba(255,230,0,.12);color:var(--acc);border:1px solid rgba(255,230,0,.3);border-radius:8px;padding:2px 8px;font-size:13px;font-weight:800;white-space:nowrap}
+.tag{background:#fff3b3;color:#5c4700;border:1px solid #efd95c;border-radius:8px;padding:2px 8px;font-size:13px;font-weight:800;white-space:nowrap}
 .hint{color:var(--mute);font-size:13px;margin:2px 0 6px}
 .set{display:flex;align-items:center;gap:8px;margin:5px 0}
 .set span.n{width:42px;color:var(--mute);font-size:13px}
-input[type=number],input[type=date],input[type=text],textarea,select{font:inherit;background:var(--card2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;width:100%}
-input::placeholder,textarea::placeholder{color:#6d7fae}
-input:focus,textarea:focus,select:focus{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+input[type=number],input[type=date],input[type=text],textarea,select{font:inherit;background:#f6f8fd;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;width:100%}
+input::placeholder,textarea::placeholder{color:#97a3c2}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 .set input[type=number]{width:84px;text-align:center}
-input[type=checkbox]{appearance:none;-webkit-appearance:none;width:26px;height:26px;flex:none;border:2px solid #5d70a8;border-radius:7px;background:var(--card2);position:relative;cursor:pointer}
-input[type=checkbox]:checked{background:var(--acc);border-color:var(--acc);box-shadow:var(--glow)}
-input[type=checkbox]:checked::after{content:"";position:absolute;left:7px;top:2px;width:7px;height:13px;border:solid #0a1020;border-width:0 3px 3px 0;transform:rotate(45deg)}
-.vid{color:var(--acc);font-weight:700;text-decoration:none}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;width:26px;height:26px;flex:none;border:2px solid #aab5d3;border-radius:8px;background:#fff;position:relative;cursor:pointer}
+input[type=checkbox]:checked{background:var(--blue);border-color:var(--blue)}
+input[type=checkbox]:checked::after{content:"";position:absolute;left:7px;top:2px;width:7px;height:13px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.vid{color:var(--blue);font-weight:700;text-decoration:none}
 .flag{border:0;background:none;color:var(--mute);font-size:12px;cursor:pointer;text-decoration:underline;padding:0}
 .flag.on{color:var(--bad);font-weight:700}
-.btn{padding:12px 16px;border-radius:12px;border:0;background:var(--acc);color:#0a1020;font:inherit;font-weight:800;cursor:pointer;box-shadow:var(--glow)}
-.btn.sec{background:var(--card2);color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:700}
+.btn{padding:12px 18px;border-radius:12px;border:0;background:var(--acc);color:#0b1a55;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 2px 8px rgba(255,200,0,.4)}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:700}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px}
-.row:has(.daybtn){align-items:stretch}
-.stat{background:var(--acc2);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
-.stat b{display:block;font-size:24px;color:var(--acc)}
+.stat{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-size:24px;color:var(--blue)}
 .stat span{font-size:12px;color:var(--mute)}
-.bar{height:10px;background:var(--card2);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:4px 0 8px}
+.bar{height:10px;background:#e8ecf6;border-radius:6px;overflow:hidden;margin:4px 0 8px}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--acc));border-radius:6px}
 .meal{display:flex;gap:10px;align-items:flex-start}
 .meal .body{flex:1}
 .chips{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.chip{text-align:right;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
-.chip.on{border-color:var(--acc);background:var(--acc2);box-shadow:inset 0 0 0 1px rgba(255,230,0,.35)}
+.chip{text-align:right;padding:9px 11px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.chip.on{border-color:var(--blue);background:var(--soft);box-shadow:0 0 0 2px rgba(29,63,216,.15)}
 .chip small{color:var(--mute)}
 table{width:100%;border-collapse:collapse;font-size:14px}
 td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:right}
 th{color:var(--mute);font-weight:600}
 h2{font-size:18px;margin:6px 0;color:var(--ink)}
-h2::before{content:"";display:inline-block;width:4px;height:16px;background:var(--acc);border-radius:2px;margin-left:8px;vertical-align:-2px;box-shadow:var(--glow)}
+h2::before{content:"";display:inline-block;width:4px;height:16px;background:var(--blue);border-radius:2px;margin-left:8px;vertical-align:-2px}
 h3{font-size:16px;margin:10px 0 4px}
 ul{padding-right:20px;margin:6px 0}
 li{margin:3px 0}
 label.f{display:block;font-size:13px;color:var(--mute);margin:6px 0 2px}
 .small{font-size:13px;color:var(--mute)}
-a{color:var(--acc)}
-
-body{background:radial-gradient(900px 520px at 50% -140px,#1a3a92 0%,transparent 62%),linear-gradient(180deg,#0a1940 0%,#060c22 55%,#050a1b 100%) fixed,#050a1b}
-.card{background:linear-gradient(165deg,rgba(32,66,156,.38),rgba(11,21,50,.94) 58%);border:1px solid rgba(90,130,255,.22);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-nav{gap:0;padding:6px 0 8px;border-bottom:1px solid rgba(90,130,255,.18);background:rgba(6,12,34,.9)}
-nav button{background:transparent;border:0;border-radius:0;padding:6px 2px 8px;font-size:12px;font-weight:600;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
-nav button svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-nav button.on{background:transparent;box-shadow:none;color:var(--acc)}
-nav button.on svg{filter:drop-shadow(0 0 6px rgba(255,230,0,.7))}
-nav button.on::after{content:"";position:absolute;bottom:0;left:30%;right:30%;height:3px;border-radius:3px;background:var(--acc);box-shadow:var(--glow)}
-.sec{margin:16px 4px 6px}
+a{color:var(--blue)}
+.sec{margin:18px 4px 6px}
 .sec small{display:block;font-size:12px;letter-spacing:1px;color:var(--mute)}
 .sec b{font-size:19px;font-weight:800}
 .kv{display:flex;flex-direction:column;gap:12px}
 .kv div{display:flex;flex-direction:column}
 .kv small{font-size:12px;color:var(--mute)}
-.kv b{font-size:24px;color:var(--acc);line-height:1.1}
+.kv b{font-size:24px;color:var(--blue);line-height:1.1}
 .perf{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .rings{display:flex;justify-content:space-around;gap:8px}
 .ringbox{text-align:center;flex:1}
 .ringbox small{display:block;color:var(--mute);font-size:12px;margin-top:4px}
-.next{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.next small{color:var(--mute);font-size:12px}
-.next b{display:block;font-size:17px}
-#splash{position:fixed;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:radial-gradient(620px 520px at 50% 38%,#1a3a92,#050a1b 72%);animation:spOut .5s 1.7s forwards}
+.next{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(160deg,#1633b8,#0b1a55);color:#fff;border:0}
+.next small{color:#b8c6f2;font-size:12px;display:block}
+.next b{display:block;font-size:18px}
+.freeit{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;font-size:14px}
+.freeit span:last-child{color:var(--blue);white-space:nowrap;font-size:13px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
+.cal .hd{text-align:center;font-size:12px;color:var(--mute);padding:2px 0}
+.cd{aspect-ratio:1/1.08;border:1px solid var(--line);background:#fff;border-radius:11px;padding:3px 2px;font:inherit;font-size:13px;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:space-between;cursor:pointer}
+.cd.has{background:var(--soft);border-color:#c7d2f7}
+.cd.today{border:2px solid var(--blue);font-weight:800}
+.cd.sel{box-shadow:0 0 0 2px var(--acc)}
+.cd .m{display:flex;gap:2px;flex-wrap:wrap;justify-content:center;min-height:17px}
+.cd i{font-style:normal;font-size:10px;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cd i.up{background:var(--blue);color:#fff}
+.cd i.lo{background:var(--acc);color:#0b1a55}
+.calh{display:flex;align-items:center;justify-content:space-between}
+.calh b{font-size:17px}
+.calh button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:22px;line-height:1;color:var(--blue);cursor:pointer}
+.leg{display:flex;gap:14px;font-size:12px;color:var(--mute);margin-top:8px}
+.leg i{font-style:normal;display:inline-flex;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin-left:5px}
+#splash{position:fixed;inset:0;z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:radial-gradient(620px 520px at 50% 38%,#1a3a92,#050a1b 72%);color:#f1f4ff;animation:spOut .5s 1.7s forwards}
 #splash img{width:132px;height:132px;border-radius:30px;box-shadow:0 0 0 1px rgba(90,130,255,.5),0 10px 40px rgba(43,80,255,.5)}
 #splash .t{font-size:34px;font-weight:900;font-style:italic;direction:ltr;letter-spacing:1px}
-#splash .t b{color:var(--acc);text-shadow:0 0 18px rgba(255,230,0,.55)}
-#splash .g{direction:ltr;font-size:12px;letter-spacing:6px;color:var(--mute);display:flex;align-items:center;gap:10px}
-#splash .g i{display:block;width:34px;height:2px;background:var(--acc);box-shadow:var(--glow)}
+#splash .t b{color:#ffe600;text-shadow:0 0 18px rgba(255,230,0,.55)}
+#splash .g{direction:ltr;font-size:12px;letter-spacing:6px;color:#9fb0d8;display:flex;align-items:center;gap:10px}
+#splash .g i{display:block;width:34px;height:2px;background:#ffe600}
 @keyframes spOut{to{opacity:0;visibility:hidden}}
-
-/* ===== gradient + fade polish ===== */
-:root{--gc:linear-gradient(160deg,rgba(46,86,200,.34) 0%,rgba(14,27,64,.9) 58%,rgba(8,16,40,.78) 100%);--gb:rgba(95,135,255,.24)}
-nav{margin:0 -12px;padding:8px 12px 18px;background:linear-gradient(180deg,rgba(5,10,28,.98) 0%,rgba(5,10,28,.9) 50%,rgba(5,10,28,0) 100%);border-bottom:0;-webkit-backdrop-filter:none;backdrop-filter:none}
-.card{background:var(--gc);border:1px solid var(--gb);box-shadow:0 10px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.07)}
-.daybtn,.chip,.stat,.pill{background:var(--gc);border:1px solid var(--gb);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-.daybtn.on{background:linear-gradient(160deg,rgba(255,230,0,.26) 0%,rgba(43,80,255,.32) 60%,rgba(10,20,52,.85) 100%);border-color:var(--acc);box-shadow:0 0 18px rgba(255,230,0,.28),inset 0 1px 0 rgba(255,255,255,.12)}
-.chip.on{background:linear-gradient(160deg,rgba(255,230,0,.22) 0%,rgba(43,80,255,.3) 65%,rgba(10,20,52,.85) 100%);border-color:var(--acc);box-shadow:0 0 14px rgba(255,230,0,.2)}
-.pill.on{background:linear-gradient(135deg,#fff68a 0%,#ffe600 42%,#ffbf00 100%);color:#0a1020;border-color:#fff27a;font-weight:800;box-shadow:0 0 20px rgba(255,230,0,.55),0 4px 14px rgba(255,190,0,.35)}
-.info{background:linear-gradient(145deg,rgba(43,80,255,.4) 0%,rgba(14,27,64,.9) 70%,rgba(8,16,40,.7) 100%);border:1px solid var(--gb);border-right:3px solid var(--acc);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
-.note{background:linear-gradient(145deg,rgba(255,230,0,.16) 0%,rgba(255,230,0,.05) 60%,rgba(255,230,0,.02) 100%);border:1px solid rgba(255,230,0,.3)}
-input[type=number],input[type=date],input[type=text],textarea,select{background:linear-gradient(180deg,#0c1736 0%,#070e24 100%);border:1px solid var(--gb)}
-.btn.sec{background:var(--gc);border:1px solid var(--gb)}
-.tag{background:linear-gradient(135deg,rgba(255,230,0,.2),rgba(255,230,0,.06))}
-.freeit{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px dashed var(--gb);margin-top:8px;padding-top:6px;font-size:14px}
-.freeit span:last-child{color:var(--acc);white-space:nowrap;font-size:13px}
-.rf{margin-right:auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--gb);background:var(--gc);color:var(--acc);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.rf svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.rf.spin svg{animation:rot .8s linear infinite}
-@keyframes rot{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div id="splash"><img src="logo-emblem.png" alt=""><div class="t">GYM<b>TRACKER</b></div><div class="g"><i></i>TARGET AND FOCUS<i></i></div></div>
 <div class="wrap">
-  <div class="brand"><img src="logo-emblem.png" alt="GT" width="64" height="64"><div><h1>GYM<b>TRACKER</b></h1><div class="sub">מסה נקייה · 4 שבועות</div></div><button id="rf" class="rf" aria-label="רענן גרסה" title="רענן גרסה"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button></div>
+  <div class="brand"><img src="logo-emblem.png" alt="GT" width="64" height="64"><div><h1>GYM<b>TRACKER</b></h1><div class="sub">מסה נקייה · מעקב אימונים</div></div><button id="rf" class="rf" aria-label="רענן גרסה" title="רענן גרסה"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button></div>
   <nav id="nav"></nav>
   <div id="view"></div>
 </div>
 
 <script>
 /* ===================== נתוני התוכנית ===================== */
-var WEEKS=[
- {t:"שבוע 1 · כניסה לעומס",d:"סט ראשון כבד (טופ סט) ב־6–8 חזרות עם 1–2 חזרות ברזרבה, ואחריו סטי ירידה (‎−10%) ל־8–10 חזרות. בתרגילי בידוד: 1–2 חזרות לפני כשל."},
- {t:"שבוע 2 · בנייה",d:"מוסיפים חזרה בכל סט, או 2.5 ק״ג בטופ סט כשהגעת ל־8 חזרות נקיות. עדיין 1–2 ברזרבה."},
- {t:"שבוע 3 · דחיפה",d:"טופ סט ב־RPE 9 (חזרה אחת ברזרבה). בתרגילי בידוד אפשר להגיע לכשל בסט האחרון."},
- {t:"שבוע 4 · דילואד והערכה",d:"סט אחד פחות בכל תרגיל, ‎−10–15% במשקל, בלי כשל. בסוף: שקילה, מדידות והחלטה מה נשאר ומה מוחלף."}
-];
 var DAYS=[
  {id:"d1",t:"יום 1 · עליון A",s:"חזה · גב · כתף צדית · זרועות",ex:[
   {g:"A1",n:"לחיצת חזה במשקולות, ספסל משופע 30° בלבד",en:"Low incline dumbbell bench press (30 degrees)",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו סטי ירידה 8–10. מרפקים ~45°."},
@@ -158,7 +147,7 @@ var DAYS=[
   {g:"D1",n:"פרפר בכבל או במכונה (חזה)",en:"Cable chest fly",s:2,r:"12–15",h:"טווח נוח בלי מתיחה קיצונית של הכתף, מרפק מעט כפוף."},
   {g:"D2",n:"כפיפת פטישים במשקולות",en:"Dumbbell hammer curl",s:3,r:"10–12",h:"בלי נדנוד."},
   {g:"E1",n:"כפיפת בטן במכונה (ישיבה)",en:"Seated ab crunch machine",s:3,r:"10–15",h:"עם משקל שמאתגר: מכווצים את הבטן ולא מושכים עם הידיים. נשימה החוצה בהתכווצות. מבצעים בישיבה."}]},
- {id:"d2",t:"יום 2 · רגליים + ליבה",s:"רגליים · ישבן · ליבה",nt:"אימון רגליים פשוט, על מכונות. הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: בשבועיים הראשונים RPE 6–7, בלי כשל, ובשבוע 1 מספיקים 2 סטים בכל תרגיל. כאבי שרירים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון.",ex:[
+ {id:"d2",t:"יום 2 · רגליים A",s:"רגליים · ישבן · ליבה",nt:"אימון רגליים פשוט, על מכונות. הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: באימוני הרגליים הראשונים RPE 6–7, בלי כשל, ומספיקים 2 סטים בכל תרגיל. כאבי שרירים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון.",ex:[
   {n:"לחיצת רגליים",en:"Leg press",s:3,r:"10–12",h:"טמפו איטי, בלי נעילה בסוף התנועה."},
   {n:"גשר ישבן (על הרצפה, עם משקולת על האגן)",en:"Dumbbell glute bridge",s:3,r:"10–15",h:"עצירה של שנייה למעלה. מעלים משקל כשכל הסטים נקיים."},
   {n:"כפיפת ברך בשכיבה / בישיבה (המסטרינג)",en:"Lying leg curl machine",s:3,r:"10–12",h:"טמפו איטי בירידה."},
@@ -176,13 +165,13 @@ var DAYS=[
   {g:"D1",n:"קרוס־אובר בכבל, מגבוה למטה (חזה תחתון)",en:"High to low cable crossover",s:2,r:"12–15",h:"מרפקים מעט כפופים, הידיים נפגשות מול הבטן התחתונה."},
   {g:"D2",n:"סופר־סט: כפיפת מרפק בכבל + פשיטת מרפק בחבל",en:"Cable biceps curl",s:3,r:"10–15",h:"בלי מנוחה בין שני התרגילים, מנוחה 90 שנ׳ אחרי הזוג."},
   {g:"E1",n:"הרמת ברכיים בכיסא קפטן (בטן תחתונה)",en:"Captain's chair knee raise",s:3,r:"10–15",h:"נשענים על האמות, בלי נדנוד. מרימים את האגן מעט בסוף התנועה. אם אין כיסא קפטן, אפשר הרמת רגליים שכיבה על ספסל."}]},
- {id:"d4",t:"יום 4 · רגליים B + ליבה (בונוס)",s:"ישבן · ירך אחורית · ליבה",nt:"בונוס, רק כשיש כוח וזמן. לא נספר בסבב ולא חובה. בשבועיים הראשונים כמעט רק תנועה: 2 סטים בכל תרגיל, משקל קל. אם עברת את יום 2 בקלות – מוסיפים סט.",ex:[
+ {id:"d4",t:"יום 4 · רגליים B",s:"ישבן · ירך אחורית · ליבה",nt:"אימון קצר וקל יותר מיום 2: משקל קל, RPE 6–7. בהתחלה 2 סטים בכל תרגיל, ואם עברת את יום 2 בקלות – מוסיפים סט.",ex:[
   {n:"גובלט סקוואט עד ספסל גבוה (עומק קטן)",en:"Goblet box squat",s:2,r:"8–12",h:"משקל קל, RPE 6–7, טמפו איטי. מטרתו תנועה ולא עומס."},
   {n:"גשר ישבן חד־רגלי",en:"Single leg glute bridge",s:3,r:"10 לצד",h:"אפשר גם עם משקולת על האגן."},
   {n:"כפיפת ברך בישיבה",en:"Seated leg curl machine",s:3,r:"12–15",h:"אחרי יום 2 – אפשר להפחית משקל."},
-  {n:"אבדוקשן ירך במכונה",en:"Hip abduction machine",s:2,r:"15",h:"יציבות ירך."},
+  {n:"היפראקסטנשן (גב תחתון) בלי משקל כבד",en:"45 degree back extension hyperextension",s:2,r:"12–15",h:"גוף בלבד או משקולת קלה לחזה."},
   {n:"הרמות תאומים בישיבה",en:"Seated calf raise",s:3,r:"15",h:""},
-  {n:"דד־באג או Pallof press בכבל",en:"Dead bug exercise",s:3,r:"10 לצד",h:"ליבה יציבה בלי עומס על הצוואר."}]}
+  {n:"Pallof press בכבל",en:"Cable pallof press",s:3,r:"10 לצד",h:"ליבה יציבה, בלי סיבוב של הגוף."}]}
 ];
 var MEALS=[
  {t:"בוקר · קליל",opts:[
@@ -209,10 +198,24 @@ var T_TRAIN={k:2600,p:140,c:350,f:70}, T_REST={k:2400,p:140,c:300,f:70};
 
 /* ===================== מצב ושמירה ===================== */
 var LS="fit_tracker_v1";
-function blank(){return {ts:0,w:{},m:{},bw:[],ms:[],flags:{}}}
-function loadLocal(){try{var j=localStorage.getItem(LS);if(j){var o=JSON.parse(j);return Object.assign(blank(),o)}}catch(e){}return blank()}
+function blank(){return {v:2,ts:0,w:{},m:{},bw:[],ms:[],flags:{}}}
+function hasData(r){return !!r&&(r.done||!!r.note||Object.keys(r.sets||{}).some(function(k){var q=r.sets[k];return q&&(q.d||q.w||q.r)}))}
+function migrate(o){
+  if(o.v>=2)return o;
+  var nw={};
+  Object.keys(o.w||{}).forEach(function(k){
+    var m=/^w\d+(d\d)$/.exec(k),r=o.w[k];
+    if(!m){nw[k]=r;return}
+    if(!hasData(r))return;
+    var date=r.date||today(),nk=date+"|"+m[1];r.date=date;
+    if(nw[nk]&&Object.keys(nw[nk].sets||{}).length>=Object.keys(r.sets||{}).length)return;
+    nw[nk]=r;
+  });
+  o.w=nw;o.v=2;return o;
+}
+function loadLocal(){try{var j=localStorage.getItem(LS);if(j){var o=JSON.parse(j);return Object.assign(blank(),migrate(o))}}catch(e){}return blank()}
 var S=loadLocal(), dbRef=null, tmr=null;
-var UI={sub:null,tab:"home",week:0,day:0,date:today(),msg:""};
+var UI={sub:null,tab:"home",day:0,date:today(),wdate:today(),cd:today(),cm:today().slice(0,7),msg:""};
 function today(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)}
 function save(){
   S.ts=Date.now();
@@ -234,7 +237,7 @@ function save(){
     if(d&&d.json){
       var remote=JSON.parse(d.json);
       if((remote.ts||0)>(S.ts||0)){
-        S=Object.assign(blank(),remote);
+        S=Object.assign(blank(),migrate(remote));
         try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}
         render();
       }
@@ -244,11 +247,14 @@ function save(){
 
 /* ===================== עזרים ===================== */
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function wk(w,d){var k="w"+w+d;return S.w[k]||(S.w[k]={sets:{},done:false,date:"",sh:"",note:"",ex:{}})}
+function wk(date,id){var k=date+"|"+id;return S.w[k]||(S.w[k]={sets:{},done:false,date:date,sh:"",note:"",ex:{}})}
+function peek(date,id){return S.w[date+"|"+id]||{sets:{},done:false,date:date,sh:"",note:"",ex:{}}}
 function exName(rec,d,ei){return (rec&&rec.ex&&rec.ex[ei])||DAYS[d].ex[ei].n}
-function prevVal(w,d,ei,si,key){
-  var cur=exName(S.w["w"+w+DAYS[d].id],d,ei);
-  for(var x=w-1;x>=0;x--){var o=S.w["w"+x+DAYS[d].id];if(o&&o.sets[ei+"_"+si]&&o.sets[ei+"_"+si][key]&&exName(o,d,ei)===cur)return o.sets[ei+"_"+si][key]}
+function prevVal(date,d,ei,si,key){
+  var id=DAYS[d].id,cur=exName(S.w[date+"|"+id],d,ei),a=[];
+  Object.keys(S.w).forEach(function(k){var p=k.split("|");if(p[1]===id&&p[0]<date)a.push(p[0])});
+  a.sort().reverse();
+  for(var x=0;x<a.length;x++){var o=S.w[a[x]+"|"+id];if(o&&o.sets[ei+"_"+si]&&o.sets[ei+"_"+si][key]&&exName(o,d,ei)===cur)return o.sets[ei+"_"+si][key]}
   return ""
 }
 var ALTS=["לחיצת חזה במשקולות, ספסל שטוח","לחיצת חזה במשקולות, ספסל משופע","לחיצת חזה במכונה משופעת","לחיצת חזה בסמית׳","משיכה עליונה אחיזה רחבה","משיכה עליונה אחיזה ניטרלית","חתירה במשקולת","חתירה במכונה","הרמות צד במכונה","פרפר במכונה (Pec Deck)","פרפר בכבל","כפיפת מרפק במשקולות","כפיפת מרפק בכבל","פשיטת מרפק בכבל","פשיטת מרפק במשקולת","לחיצת רגליים","גשר ישבן","כפיפת בטן בכבל","הרמת רגליים שכיבה"];
@@ -268,24 +274,19 @@ function renderNav(){
   var tabs=[["home","בית"],["workout","אימונים"],["food","תזונה"],["progress","התקדמות"],["guide","הנחיות"]];
   document.getElementById("nav").innerHTML=tabs.map(function(t){return '<button data-tab="'+t[0]+'" class="'+(UI.tab===t[0]?"on":"")+'">'+IC[t[0]]+'<span>'+t[1]+'</span></button>'}).join("");
 }
+function dayName(d){return ["יום ראשון","יום שני","יום שלישי","יום רביעי","יום חמישי","יום שישי","שבת"][new Date(d+"T12:00:00").getDay()]}
 function vWorkout(){
-  var h=bkNudge()+'<div class="row" style="margin-top:6px">'+WEEKS.map(function(w,i){
-    var c=DAYS.slice(0,3).filter(function(d){return wk(i,d.id).done}).length;
-    return '<button class="pill '+(UI.week===i?"on":"")+'" data-week="'+i+'">שבוע '+(i+1)+(c?' · '+c+'/3':'')+'</button>'}).join("")+'</div>';
-  var W=WEEKS[UI.week];
-  h+='<div class="info"><b>'+W.t+'</b><br>'+W.d+'</div>';
+  var h=bkNudge()+'<div class="card"><div class="row"><div style="flex:1"><label class="f" style="margin-top:0">תאריך האימון</label><input type="date" value="'+UI.wdate+'" data-wdate="1"></div></div></div>';
   h+='<div class="row">'+DAYS.map(function(d,i){
-    var done=wk(UI.week,d.id).done;
-    return '<button class="daybtn '+(UI.day===i?"on":"")+'" data-day="'+i+'">'+(done?'<span class="ck">✓</span>':'')+'<b>'+d.t.split(" · ")[0]+' · '+d.t.split(" · ")[1].split(" (")[0]+'</b><small>'+d.s+'</small></button>'}).join("")+'</div>';
-  var D=DAYS[UI.day], rec=wk(UI.week,D.id);
-  if(UI.sub&&UI.sub.indexOf(UI.week+"_"+UI.day+"_")!==0)UI.sub=null;
-  if(!rec.ex)rec.ex={};
+    var done=hasData(S.w[UI.wdate+"|"+d.id]);
+    return '<button class="daybtn '+(UI.day===i?"on":"")+'" data-day="'+i+'">'+(done?'<span class="ck">✓</span>':'')+'<b>'+d.t.split(" · ")[0]+' · '+d.t.split(" · ")[1]+'</b><small>'+d.s+'</small></button>'}).join("")+'</div>';
+  var D=DAYS[UI.day], rec=peek(UI.wdate,D.id);
+  if(UI.sub&&UI.sub.indexOf(UI.wdate+"_"+UI.day+"_")!==0)UI.sub=null;
   h+=exList()+'<div class="card"><h2>'+D.t+'</h2>';
   if(D.nt)h+='<div class="info">'+D.nt+'</div>';
-  if(UI.day===3)h+='<div class="small">מינימום 3 אימונים בשבוע. יום 4 מתווסף כשיש כוח וזמן.</div>';
   h+='<div class="note">יעד: 45–60 דקות. חימום קצר (5 דק׳): אופניים או הליכה, סיבובי כתף עם גומייה, סט חימום קל בתרגיל הראשון.'+(D.ex[0].g?' תרגילים עם אותה אות (A1 ו־A2) עושים לסירוגין: סט, 60–90 שנ׳ מנוחה, סט של השני, וחוזרים.':' מנוחה: 90–120 שנ׳ בתרגילים המורכבים, 60 שנ׳ בשאר.')+'</div>';
   D.ex.forEach(function(e,ei){
-    var key=D.id+"e"+ei, fl=S.flags[key], nm=exName(rec,UI.day,ei), rpl=nm!==e.n, subKey=UI.week+"_"+UI.day+"_"+ei;
+    var key=D.id+"e"+ei, fl=S.flags[key], nm=exName(rec,UI.day,ei), rpl=nm!==e.n, subKey=UI.wdate+"_"+UI.day+"_"+ei;
     h+='<div class="ex"><div class="exh"><div><b>'+(e.g||(ei+1)+'.')+' '+esc(nm)+'</b>'+(rpl?'<div class="hint" style="margin:0">הוחלף · במקום: '+e.n+'</div>':'')+'</div><span class="tag">'+e.s+'×'+e.r+'</span></div>';
     if(e.h&&!rpl)h+='<div class="hint">'+e.h+'</div>';
     if(rpl)h+='<div class="hint"><a class="vid" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+encodeURIComponent(nm+' how to')+'">▶ איך עושים? </a></div>';
@@ -293,18 +294,18 @@ function vWorkout(){
     for(var si=0;si<e.s;si++){
       var st=rec.sets[ei+"_"+si]||{};
       h+='<div class="set"><span class="n">סט '+(si+1)+'</span>'+
-        '<input type="number" inputmode="decimal" step="0.5" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"w")||'ק״ג')+'" value="'+esc(st.w||"")+'" data-set="'+ei+'_'+si+'" data-k="w">'+
-        '<input type="number" inputmode="numeric" placeholder="'+esc(prevVal(UI.week,UI.day,ei,si,"r")||'חזרות')+'" value="'+esc(st.r||"")+'" data-set="'+ei+'_'+si+'" data-k="r">'+
+        '<input type="number" inputmode="decimal" step="0.5" placeholder="'+esc(prevVal(UI.wdate,UI.day,ei,si,"w")||'ק״ג')+'" value="'+esc(st.w||"")+'" data-set="'+ei+'_'+si+'" data-k="w">'+
+        '<input type="number" inputmode="numeric" placeholder="'+esc(prevVal(UI.wdate,UI.day,ei,si,"r")||'חזרות')+'" value="'+esc(st.r||"")+'" data-set="'+ei+'_'+si+'" data-k="r">'+
         '<input type="checkbox" '+(st.d?"checked":"")+' data-set="'+ei+'_'+si+'" data-k="d" aria-label="בוצע"></div>';
     }
     h+='<div class="row" style="gap:14px"><button class="flag '+(fl?"on":"")+'" data-flag="'+key+'">'+(fl?"⚠ סומן כלא מתאים (לחץ לביטול)":"סמן כלא נוח / לא מתאים")+'</button><button class="flag" data-sub="'+ei+'">'+(rpl?"שנה את התרגיל שביצעת":"החלפתי תרגיל")+'</button></div>';
-    if(UI.sub===subKey)h+='<div class="info"><label class="f" style="margin-top:0">איזה תרגיל ביצעת בפועל?</label><input type="text" id="subin" list="exlist" value="'+esc(rpl?nm:"")+'" placeholder="הקלד או בחר מהרשימה"><div class="row" style="margin-top:8px"><button class="btn" data-subsave="'+ei+'">שמור</button><button class="btn sec" data-subcancel="1">בטל</button>'+(rpl?'<button class="btn sec" data-subreset="'+ei+'">חזור למקורי</button>':'')+'</div><div class="small" style="margin-top:6px">הסטים שרשמת נשארים. השם בלבד משתנה, והמספרים מהשבוע הקודם יוצגו רק אם ביצעת אותו תרגיל.</div></div>';
+    if(UI.sub===subKey)h+='<div class="info"><label class="f" style="margin-top:0">איזה תרגיל ביצעת בפועל?</label><input type="text" id="subin" list="exlist" value="'+esc(rpl?nm:"")+'" placeholder="הקלד או בחר מהרשימה"><div class="row" style="margin-top:8px"><button class="btn" data-subsave="'+ei+'">שמור</button><button class="btn sec" data-subcancel="1">בטל</button>'+(rpl?'<button class="btn sec" data-subreset="'+ei+'">חזור למקורי</button>':'')+'</div><div class="small" style="margin-top:6px">הסטים שרשמת נשארים. השם בלבד משתנה, והמספרים מהפעם הקודמת יוצגו רק אם ביצעת אותו תרגיל.</div></div>';
     h+='</div>';
   });
   h+='<h3>איך הרגשת?</h3><div class="grid">'+
     '<div><label class="f">אי נוחות כתף (0–10)</label>'+sel("sh",rec.sh)+'</div></div>'+
     '<label class="f">הערות</label><textarea rows="2" data-note="1" placeholder="מה עבד, מה לא, אנרגיה, שינה...">'+esc(rec.note)+'</textarea>';
-  h+='<div style="margin-top:12px"><button class="btn" data-done="1">'+(rec.done?"✓ האימון סומן כבוצע (לחץ לביטול)":"סיימתי את האימון")+'</button>'+(rec.date?' <span class="small">'+fmtD(rec.date)+'</span>':'')+'</div></div>';
+  h+='<div style="margin-top:12px"><button class="btn" data-done="1">'+(rec.done?"✓ האימון סומן כבוצע (לחץ לביטול)":"סיימתי את האימון")+'</button>'+(hasData(S.w[UI.wdate+"|"+D.id])?' <button class="flag" data-delses="1" style="margin-right:12px">מחק את האימון הזה</button>':'')+'</div></div>';
   return h;
 }
 function bkNudge(){
@@ -363,8 +364,8 @@ function chart(){
   var pts=a.map(function(x){return X(x.d).toFixed(1)+","+Y(x.v).toFixed(1)}).join(" ");
   var g='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="גרף משקל">';
   for(var i=0;i<=3;i++){var v=min+(max-min)*i/3,y=Y(v);g+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'" stroke="var(--line)"/><text x="'+(pl-4)+'" y="'+(y+4)+'" font-size="11" text-anchor="end" fill="var(--mute)">'+v.toFixed(1)+'</text>'}
-  g+='<polyline points="'+pts+'" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round"/>';
-  a.forEach(function(x){g+='<circle cx="'+X(x.d)+'" cy="'+Y(x.v)+'" r="3.5" fill="var(--acc)"/>'});
+  g+='<polyline points="'+pts+'" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linejoin="round"/>';
+  a.forEach(function(x){g+='<circle cx="'+X(x.d)+'" cy="'+Y(x.v)+'" r="3.5" fill="var(--blue)"/>'});
   g+='<text x="'+pl+'" y="'+(H-6)+'" font-size="11" fill="var(--mute)">'+fmtD(a[0].d)+'</text><text x="'+(W-pr)+'" y="'+(H-6)+'" font-size="11" text-anchor="end" fill="var(--mute)">'+fmtD(a[a.length-1].d)+'</text></svg>';
   return g;
 }
@@ -377,14 +378,14 @@ function weekAvg(){
   return {first:avg(f),last:avg(l),days:days};
 }
 function vProgress(){
-  var done=0,total=WEEKS.length*3,flags=[],sh=[];
-  WEEKS.forEach(function(_,w){DAYS.forEach(function(d){var r=S.w["w"+w+d.id];if(r){if(r.done)done++;if(r.sh!=="")sh.push(+r.sh)}})});
+  var done=0,flags=[],sh=[];
+  Object.keys(S.w).forEach(function(k){var r=S.w[k];if(r){if(r.done)done++;if(r.sh!==""&&r.sh!=null)sh.push(+r.sh)}});
   Object.keys(S.flags).forEach(function(k){if(S.flags[k]){var d=DAYS.filter(function(x){return k.indexOf(x.id)===0})[0],ei=+k.slice(d.id.length+1);flags.push(d.ex[ei].n+' <span class="small">('+d.t.split(" · ")[0]+')</span>')}});
   var mealDays=Object.keys(S.m).filter(function(d){return Object.keys(S.m[d].eat).some(function(i){return S.m[d].eat[i]})}).length;
   var wa=weekAvg();
   function mx(a){return a.length?Math.max.apply(null,a):"–"}
   var h='<div class="grid" style="margin-top:8px">'+
-   '<div class="stat"><b>'+done+'</b><span>אימונים שבוצעו (יעד מינימום '+total+')</span></div>'+
+   '<div class="stat"><b>'+done+'</b><span>אימונים שבוצעו</span></div>'+
    '<div class="stat"><b>'+mealDays+'</b><span>ימי תזונה שנרשמו</span></div>'+
    '<div class="stat"><b>'+(wa?(wa.last-wa.first>=0?"+":"")+(wa.last-wa.first).toFixed(1):"–")+'</b><span>שינוי משקל (ק״ג, ממוצע)</span></div></div>';
   h+='<div class="card"><h2>משקל</h2><div class="row"><input type="date" id="bwd" value="'+today()+'" style="flex:1"><input type="number" step="0.1" inputmode="decimal" id="bwv" placeholder="ק״ג" style="flex:1"><button class="btn" data-addbw="1">הוסף</button></div>'+chart();
@@ -413,8 +414,8 @@ function vGuide(){
    '<li><b>סולם כאב:</b> עד 3 מתוך 10 – ממשיכים בזהירות. 4–5 – מורידים משקל או מקצרים טווח. מעל 5 או כאב חד – עוצרים את התרגיל ומחליפים אותו. כאב שנמשך אחרי האימון – כדאי פיזיותרפיסט.</li></ul></div>'+
    '<div class="card"><h2>איך מתקדמים</h2><ul><li><b>טופ סט + ירידה:</b> בתרגילים המרכזיים (4 סטים) הסט הראשון כבד, 6–8 חזרות עם 1–2 ברזרבה. שאר הסטים ב־10% פחות משקל ל־8–10 חזרות.</li>'+
    '<li><b>מתי מעלים:</b> כשהטופ סט עבר 8 חזרות נקיות – 2.5 ק״ג (ליד, במשקולות) או 5 ק״ג (בכבל). בתרגילי בידוד קטנים 1–2.5 ק״ג או חזרה נוספת.</li>'+
-   '<li>המספר באפור בשדה הוא מה שעשית בשבוע הקודם באותו תרגיל ובאותו סט (אם החלפת תרגיל הוא לא מוצג). המטרה: לעקוף אותו בחזרה או בקילו.</li>'+
-   '<li>שבוע 4 הוא דילואד מתוכנן, לא שבוע חלש. הגוף גדל במנוחה, ואחריו נפתח חודש עם משקלים חדשים.</li></ul></div>'+
+   '<li>המספר באפור בשדה הוא מה שעשית בפעם הקודמת באותו תרגיל ובאותו סט (אם החלפת תרגיל הוא לא מוצג). המטרה: לעקוף אותו בחזרה או בקילו.</li>'+
+   '<li>כל 6–8 שבועות כדאי שבוע קל: סט אחד פחות בכל תרגיל ו־10–15% פחות משקל, בלי כשל. הגוף גדל במנוחה.</li></ul></div>'+
    '<div class="card"><h2>תזונה: העקרונות</h2><ul>'+
    '<li>מעט עודף: ~2600 קלוריות ביום אימון, ~2400 ביום מנוחה (הערכה מאזן ~2400). זה מכוון לעלייה איטית של 0.15–0.3 ק״ג בשבוע, כדי להישאר חטוב.</li>'+
    '<li>חלבון ~140 גר׳ (כ־2 גר׳ לק״ג) ב־4 ארוחות. שומן ~70, השאר פחמימות, בעיקר סביב האימון.</li>'+
@@ -446,9 +447,9 @@ function statsFor(dates){
 function ring(p,size,sw,val,id){
   p=Math.max(0,Math.min(1,p||0));var r=(size-sw)/2,c=2*Math.PI*r,m=size/2;
   return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'" role="img"><defs><linearGradient id="rg'+id+'" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2b50ff"/><stop offset="1" stop-color="#ffe600"/></linearGradient></defs>'+
-   '<circle cx="'+m+'" cy="'+m+'" r="'+r+'" fill="none" stroke="rgba(120,150,255,.16)" stroke-width="'+sw+'"/>'+
+   '<circle cx="'+m+'" cy="'+m+'" r="'+r+'" fill="none" stroke="#e3e8f6" stroke-width="'+sw+'"/>'+
    (p>0?'<circle cx="'+m+'" cy="'+m+'" r="'+r+'" fill="none" stroke="url(#rg'+id+')" stroke-width="'+sw+'" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+(c*(1-p))+'" transform="rotate(-90 '+m+' '+m+')"/>':'')+
-   '<text x="'+m+'" y="'+(m+size*0.08)+'" text-anchor="middle" font-size="'+Math.round(size*0.25)+'" font-weight="800" fill="#f1f4ff">'+val+'</text></svg>';
+   '<text x="'+m+'" y="'+(m+size*0.08)+'" text-anchor="middle" font-size="'+Math.round(size*0.25)+'" font-weight="800" fill="#0e1a3d">'+val+'</text></svg>';
 }
 function barChart(dates,sets){
   var W=340,H=176,pt=22,pb=26,pl=14,pr=14,vals=dates.map(function(d){return sets[d]});
@@ -459,38 +460,52 @@ function barChart(dates,sets){
   dates.forEach(function(d,i){
     var cx=W-pr-step*(i+0.5),h=Math.max(4,(H-pt-pb)*vals[i]/max),y=H-pb-h,isT=d===t;
     g+='<rect x="'+(cx-bw/2)+'" y="'+y+'" width="'+bw+'" height="'+h+'" rx="9" fill="url(#bg1)" opacity="'+(vals[i]===0?0.22:(isT?1:0.8))+'"/>';
-    if(vals[i]>0)g+='<text x="'+cx+'" y="'+(y-6)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#f1f4ff">'+vals[i]+'</text>';
-    g+='<text x="'+cx+'" y="'+(H-8)+'" text-anchor="middle" font-size="12" font-weight="'+(isT?800:500)+'" fill="'+(isT?"#ffe600":"#9fb0d8")+'">'+names[i]+'</text>';
+    if(vals[i]>0)g+='<text x="'+cx+'" y="'+(y-6)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#0e1a3d">'+vals[i]+'</text>';
+    g+='<text x="'+cx+'" y="'+(H-8)+'" text-anchor="middle" font-size="12" font-weight="'+(isT?800:500)+'" fill="'+(isT?"#1d3fd8":"#5c6a8c")+'">'+names[i]+'</text>';
     pts.push([cx,y]);
   });
-  g+='<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+","+(p[1]-0).toFixed(1)}).join(" ")+'" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.5" stroke-dasharray="2 4"/>';
-  pts.forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.8" fill="#fff"/>'});
+  g+='<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+","+(p[1]-0).toFixed(1)}).join(" ")+'" fill="none" stroke="rgba(29,63,216,.35)" stroke-width="1.5" stroke-dasharray="2 4"/>';
+  pts.forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="2.8" fill="#1d3fd8"/>'});
   return g+'</svg>';
 }
+function sessionsOn(date){var a=[];DAYS.forEach(function(D,i){if(hasData(S.w[date+"|"+D.id]))a.push(i)});return a}
 function nextWorkout(){
-  for(var w=0;w<WEEKS.length;w++)for(var d=0;d<3;d++){
-    var id=["d1","d2","d3"][d];if(!wk(w,id).done)return {w:w,d:d};
+  var best="",bi=-1;
+  Object.keys(S.w).forEach(function(k){var p=k.split("|");if(hasData(S.w[k])&&p[0]>=best){var i=DAYS.map(function(d){return d.id}).indexOf(p[1]);if(i>=0&&(p[0]>best||i>bi)){best=p[0];bi=i}}});
+  return (bi+1)%DAYS.length;
+}
+var MON=["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
+function pad(n){return (n<10?"0":"")+n}
+function vCal(){
+  var p=UI.cm.split("-"),Y=+p[0],M=+p[1]-1,first=new Date(Y,M,1).getDay(),n=new Date(Y,M+1,0).getDate(),t=today(),cnt=0;
+  var h='<div class="card"><div class="calh"><button data-cm="-1" aria-label="חודש קודם">‹</button><b>'+MON[M]+' '+Y+'</b><button data-cm="1" aria-label="חודש הבא">›</button></div><div class="cal">';
+  ["א","ב","ג","ד","ה","ו","ש"].forEach(function(x){h+='<div class="hd">'+x+'</div>'});
+  for(var i=0;i<first;i++)h+='<div></div>';
+  for(var d=1;d<=n;d++){
+    var date=Y+"-"+pad(M+1)+"-"+pad(d),ss=sessionsOn(date);cnt+=ss.length;
+    h+='<button class="cd'+(ss.length?' has':'')+(date===t?' today':'')+(date===UI.cd?' sel':'')+'" data-cd="'+date+'"><span>'+d+'</span><span class="m">'+ss.map(function(i){return '<i class="'+(i%2?'lo':'up')+'">'+(i<2?"A":"B")+'</i>'}).join("")+'</span></button>';
   }
-  return null;
+  h+='</div><div class="leg"><span><i style="background:var(--blue)"></i>עליון</span><span><i style="background:var(--acc)"></i>רגליים</span><span style="margin-right:auto">אימונים החודש: <b style="color:var(--ink)">'+cnt+'</b></span></div></div>';
+  var ss=sessionsOn(UI.cd);
+  h+='<div class="card"><b>'+dayName(UI.cd)+' · '+fmtD(UI.cd)+'</b><div class="small" style="margin:2px 0 8px">'+(ss.length?'בוצע בתאריך הזה. אפשר לפתוח, לערוך או להוסיף אימון:':'לא נרשם אימון. בחר אימון כדי להוסיף בתאריך הזה:')+'</div><div class="row">'+
+    DAYS.map(function(D,i){var on=ss.indexOf(i)>=0;return '<button class="pill'+(on?' on':'')+'" data-open="'+UI.cd+'_'+i+'">'+D.t.split(" · ")[1]+(on?' ✓':'')+'</button>'}).join("")+'</div></div>';
+  return h;
 }
 function vHome(){
   var dates=weekDates(),st=statsFor(dates),t=today();
   var m=meal(t),tg=m.train?T_TRAIN:T_REST,tt=totals(m);
-  var monthDone=0;WEEKS.forEach(function(_,w){DAYS.forEach(function(d){if(S.w["w"+w+d.id]&&S.w["w"+w+d.id].done)monthDone++})});
-  var wkP=Math.min(1,st.wo/3),nx=nextWorkout();
+  var wkP=Math.min(1,st.wo/4),nx=nextWorkout();
   var h=bkNudge();
+  h+='<div class="sec"><small>המעקב שלך</small><b>לוח אימונים</b></div>'+vCal();
+  var D=DAYS[nx];
+  h+='<div class="sec"><small>האימון הבא</small></div><div class="card next"><div><b>'+D.t.split(" · ")[1]+'</b><small>'+D.s+'</small></div><button class="btn" data-open="'+t+'_'+nx+'">התחל</button></div>';
   h+='<div class="sec"><small>השבוע שלך</small><b>סטים שבוצעו</b></div><div class="card" style="padding:12px 10px 6px">'+barChart(dates,st.sets)+'</div>';
-  h+='<div class="sec"><small>האימון הבא</small></div><div class="card next">';
-  if(nx){var D=DAYS[nx.d];h+='<div><small>'+WEEKS[nx.w].t+'</small><b>'+D.t.split(" · ")[1]+'</b><small>'+D.s+'</small></div><button class="btn" data-next="'+nx.w+'_'+nx.d+'">התחל</button>'}
-  else h+='<div><b>סיימת את כל אימוני החודש</b><small>הגיע הזמן להעריך ולהחליט על החודש הבא</small></div><button class="btn" data-tab="progress">סיכום</button>';
-  h+='</div>';
   var dayTot=st.sets[t]||0,weekTot=0;Object.keys(st.sets).forEach(function(k){weekTot+=st.sets[k]});
   h+='<div class="sec"><small>הביצועים שלך</small><b>סיכום שבועי</b></div><div class="card perf"><div class="kv">'+
     '<div><small>סטים השבוע</small><b>'+weekTot+'</b></div><div><small>סטים היום</small><b>'+dayTot+'</b></div>'+
     '<div><small>נפח שבועי (ק״ג)</small><b>'+Math.round(st.vol).toLocaleString("en-US")+'</b></div></div>'+
-    '<div class="ringbox">'+ring(wkP,132,12,Math.round(wkP*100)+"%","w")+'<small>אימונים השבוע: '+st.wo+' מתוך 3</small></div></div>';
-  h+='<div class="sec"><small>ההתקדמות שלך</small><b>היום והחודש</b></div><div class="card rings">'+
-    '<div class="ringbox">'+ring(monthDone/12,92,9,monthDone+"/12","m")+'<small>אימוני החודש</small></div>'+
+    '<div class="ringbox">'+ring(wkP,132,12,Math.round(wkP*100)+"%","w")+'<small>אימונים השבוע: '+st.wo+' מתוך 4</small></div></div>';
+  h+='<div class="sec"><small>היום</small><b>תזונה</b></div><div class="card rings">'+
     '<div class="ringbox">'+ring(tt.p/tg.p,92,9,Math.round(Math.min(1,tt.p/tg.p)*100)+"%","p")+'<small>חלבון היום</small></div>'+
     '<div class="ringbox">'+ring(tt.k/tg.k,92,9,Math.round(Math.min(1,tt.k/tg.k)*100)+"%","k")+'<small>קלוריות היום</small></div></div>';
   var bw=S.bw.slice().sort(function(a,b){return a.d<b.d?1:-1});
@@ -507,22 +522,24 @@ function render(){
 
 /* ===================== אירועים ===================== */
 document.addEventListener("click",function(e){
-  var t=e.target.closest("[data-tab],[data-sub],[data-subsave],[data-subcancel],[data-subreset],[data-next],[data-addfree],[data-delfree],[data-askc],[data-week],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
+  var t=e.target.closest("[data-tab],[data-sub],[data-subsave],[data-subcancel],[data-subreset],[data-next],[data-addfree],[data-delfree],[data-askc],[data-cd],[data-cm],[data-open],[data-delses],[data-day],[data-flag],[data-done],[data-train],[data-eat],[data-opt],[data-addbw],[data-delbw],[data-addms],[data-delms],[data-export],[data-import]");
   if(!t)return;
   var D=t.dataset;
-  if(D.sub!==undefined){UI.sub=UI.week+"_"+UI.day+"_"+D.sub;render();return}
-  if(D.subsave!==undefined){var sv=document.getElementById("subin").value.trim(),sr=wk(UI.week,DAYS[UI.day].id);if(!sr.ex)sr.ex={};if(sv&&sv!==DAYS[UI.day].ex[+D.subsave].n)sr.ex[D.subsave]=sv;else delete sr.ex[D.subsave];UI.sub=null;save();render();return}
+  if(D.sub!==undefined){UI.sub=UI.wdate+"_"+UI.day+"_"+D.sub;render();return}
+  if(D.subsave!==undefined){var sv=document.getElementById("subin").value.trim(),sr=wk(UI.wdate,DAYS[UI.day].id);if(!sr.ex)sr.ex={};if(sv&&sv!==DAYS[UI.day].ex[+D.subsave].n)sr.ex[D.subsave]=sv;else delete sr.ex[D.subsave];UI.sub=null;save();render();return}
   if(D.subcancel!==undefined){UI.sub=null;render();return}
-  if(D.subreset!==undefined){var rr=wk(UI.week,DAYS[UI.day].id);if(rr.ex)delete rr.ex[D.subreset];UI.sub=null;save();render();return}
+  if(D.subreset!==undefined){var rr=wk(UI.wdate,DAYS[UI.day].id);if(rr.ex)delete rr.ex[D.subreset];UI.sub=null;save();render();return}
   if(D.tab){UI.tab=D.tab;render();window.scrollTo(0,0);return}
   if(D.addfree!==undefined){var ft=document.getElementById("ft").value.trim(),fk=parseFloat(document.getElementById("fk").value),fp=parseFloat(document.getElementById("fp").value);if(!ft&&isNaN(fk)&&isNaN(fp))return;var mm=meal(UI.date);(mm.free||(mm.free=[])).push({t:ft,k:isNaN(fk)?0:fk,p:isNaN(fp)?0:fp,s:+document.getElementById("fs").value});save();render();return}
   if(D.delfree!==undefined){var m2=meal(UI.date);if(m2.free){m2.free.splice(+D.delfree,1);save();render()}return}
   if(D.askc!==undefined){var tx=document.getElementById("ft").value.trim(),mg=document.getElementById("fmsg");if(!tx){mg.textContent="כתוב קודם מה אכלת";return}var q="תעריך בערך קלוריות וחלבון לארוחה הבאה (בכמויות ממוצעות אם לא צוין): "+tx+". תענה בקצרה: קלוריות ~X, חלבון ~Y גרם.";var ok=false;try{navigator.clipboard.writeText(q).then(function(){mg.textContent="הועתק. הדבק ב־Claude ואז הזן את המספרים כאן."},function(){mg.textContent="לא הצלחתי להעתיק. הנה הטקסט: "+q});ok=true}catch(x){}if(!ok)mg.textContent="הנה הטקסט להעתקה: "+q;return}
-  if(D.next){var q=D.next.split("_");UI.week=+q[0];UI.day=+q[1];UI.tab="workout";render();window.scrollTo(0,0);return}
-  if(D.week!==undefined){UI.week=+D.week;render();return}
+  if(D.open){var q=D.open.split("_");UI.wdate=q[0];UI.day=+q[1];UI.tab="workout";render();window.scrollTo(0,0);return}
+  if(D.cd){UI.cd=D.cd;render();return}
+  if(D.cm){var pp=UI.cm.split("-"),dd=new Date(+pp[0],+pp[1]-1+(+D.cm),1);UI.cm=dd.getFullYear()+"-"+pad(dd.getMonth()+1);render();return}
+  if(D.delses){if(confirm("למחוק את האימון הזה?")){delete S.w[UI.wdate+"|"+DAYS[UI.day].id];save();render()}return}
   if(D.day!==undefined){UI.day=+D.day;render();return}
   if(D.flag){S.flags[D.flag]=!S.flags[D.flag];save();render();return}
-  if(D.done){var r=wk(UI.week,DAYS[UI.day].id);r.done=!r.done;if(r.done&&!r.date)r.date=today();save();render();return}
+  if(D.done){var r=wk(UI.wdate,DAYS[UI.day].id);r.done=!r.done;if(r.done&&!r.date)r.date=today();save();render();return}
   if(D.train!==undefined){meal(UI.date).train=D.train==="1";save();render();return}
   if(D.opt){var p=D.opt.split("_");meal(UI.date).sel[p[0]]=+p[1];meal(UI.date).eat[p[0]]=true;save();render();return}
   if(D.addbw!==undefined){var d=document.getElementById("bwd").value,v=parseFloat(document.getElementById("bwv").value);if(!d||!(v>30&&v<200))return;S.bw=S.bw.filter(function(x){return x.d!==d});S.bw.push({d:d,v:v});save();render();return}
@@ -530,16 +547,17 @@ document.addEventListener("click",function(e){
   if(D.addms!==undefined){var g=function(i){var x=parseFloat(document.getElementById(i).value);return isNaN(x)?"":x};var dd=document.getElementById("msd").value;if(!dd)return;S.ms=S.ms.filter(function(x){return x.d!==dd});S.ms.push({d:dd,w:g("msw"),c:g("msc"),a:g("msa"),t:g("mst")});save();render();return}
   if(D.delms){S.ms=S.ms.filter(function(x){return x.d!==D.delms});save();render();return}
   if(D.export!==undefined){var ta=document.getElementById("bk");ta.value=JSON.stringify(S);ta.select();S.bk=today();try{localStorage.setItem(LS,JSON.stringify(S))}catch(x){}var ok=false;try{navigator.clipboard.writeText(ta.value).then(function(){document.getElementById("bkmsg").textContent="הועתק ללוח"},function(){document.getElementById("bkmsg").textContent="סמן והעתק ידנית"});ok=true}catch(x){}if(!ok)document.getElementById("bkmsg").textContent="סמן והעתק ידנית";return}
-  if(D.import!==undefined){try{var o=JSON.parse(document.getElementById("bk").value);if(!o||typeof o!=="object"||!o.w)throw 0;S=Object.assign(blank(),o);save();render();document.getElementById("bkmsg")&&0}catch(x){document.getElementById("bkmsg").textContent="הטקסט לא תקין"}return}
+  if(D.import!==undefined){try{var o=JSON.parse(document.getElementById("bk").value);if(!o||typeof o!=="object"||!o.w)throw 0;S=Object.assign(blank(),migrate(o));save();render();document.getElementById("bkmsg")&&0}catch(x){document.getElementById("bkmsg").textContent="הטקסט לא תקין"}return}
 });
 document.addEventListener("input",function(e){
   var t=e.target,D=t.dataset;
-  if(D.set){var r=wk(UI.week,DAYS[UI.day].id),st=r.sets[D.set]||(r.sets[D.set]={});st[D.k]=t.type==="checkbox"?t.checked:t.value;if(!r.date)r.date=today();save()}
-  else if(D.note){wk(UI.week,DAYS[UI.day].id).note=t.value;save()}
+  if(D.set){var r=wk(UI.wdate,DAYS[UI.day].id),st=r.sets[D.set]||(r.sets[D.set]={});st[D.k]=t.type==="checkbox"?t.checked:t.value;if(!r.date)r.date=today();save()}
+  else if(D.note){wk(UI.wdate,DAYS[UI.day].id).note=t.value;save()}
 });
 document.addEventListener("change",function(e){
   var t=e.target,D=t.dataset;
-  if(D.sel){wk(UI.week,DAYS[UI.day].id)[D.sel]=t.value;save()}
+  if(D.sel){wk(UI.wdate,DAYS[UI.day].id)[D.sel]=t.value;save()}
+  else if(D.wdate){if(t.value){UI.wdate=t.value;UI.cd=t.value;render()}}
   else if(D.date){if(t.value){UI.date=t.value;render()}}
   else if(D.eat!==undefined){meal(UI.date).eat[D.eat]=t.checked;save();render()}
   else if(D.chk){meal(UI.date)[D.chk]=t.checked;save()}
