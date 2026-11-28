@@ -102,6 +102,11 @@ a{color:var(--blue)}
 .next b{display:block;font-size:18px}
 .freeit{display:flex;justify-content:space-between;gap:8px;align-items:center;border-top:1px dashed var(--line);margin-top:8px;padding-top:6px;font-size:14px}
 .freeit span:last-child{color:var(--blue);white-space:nowrap;font-size:13px}
+.seg{display:flex;gap:4px;background:#e4e9f6;border-radius:14px;padding:4px;margin:10px 0}
+.seg button{flex:1;position:relative;border:0;background:transparent;border-radius:11px;padding:9px 2px;font:inherit;font-size:13px;font-weight:700;color:var(--mute);cursor:pointer;line-height:1.2}
+.seg button.on{background:#fff;color:var(--blue);box-shadow:0 1px 6px rgba(15,30,90,.15)}
+.seg em{position:absolute;top:1px;left:4px;font-style:normal;font-size:11px;color:var(--blue)}
+input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;height:42px}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:8px}
 .cal .hd{text-align:center;font-size:12px;color:var(--mute);padding:2px 0}
 .cd{aspect-ratio:1/1.08;border:1px solid var(--line);background:#fff;border-radius:11px;padding:3px 2px;font:inherit;font-size:13px;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:space-between;cursor:pointer}
@@ -277,12 +282,12 @@ function renderNav(){
 function dayName(d){return ["יום ראשון","יום שני","יום שלישי","יום רביעי","יום חמישי","יום שישי","שבת"][new Date(d+"T12:00:00").getDay()]}
 function vWorkout(){
   var h=bkNudge()+'<div class="card"><div class="row"><div style="flex:1"><label class="f" style="margin-top:0">תאריך האימון</label><input type="date" value="'+UI.wdate+'" data-wdate="1"></div></div></div>';
-  h+='<div class="row">'+DAYS.map(function(d,i){
+  h+='<div class="seg">'+DAYS.map(function(d,i){
     var done=hasData(S.w[UI.wdate+"|"+d.id]);
-    return '<button class="daybtn '+(UI.day===i?"on":"")+'" data-day="'+i+'">'+(done?'<span class="ck">✓</span>':'')+'<b>'+d.t.split(" · ")[0]+' · '+d.t.split(" · ")[1]+'</b><small>'+d.s+'</small></button>'}).join("")+'</div>';
+    return '<button class="'+(UI.day===i?'on':'')+'" data-day="'+i+'"><span>'+d.t.split(" · ")[1]+'</span>'+(done?'<em>✓</em>':'')+'</button>'}).join("")+'</div>';
   var D=DAYS[UI.day], rec=peek(UI.wdate,D.id);
   if(UI.sub&&UI.sub.indexOf(UI.wdate+"_"+UI.day+"_")!==0)UI.sub=null;
-  h+=exList()+'<div class="card"><h2>'+D.t+'</h2>';
+  h+=exList()+'<div class="card"><h2>'+D.t+'</h2><div class="small" style="margin:-2px 0 6px">'+D.s+'</div>';
   if(D.nt)h+='<div class="info">'+D.nt+'</div>';
   h+='<div class="note">יעד: 45–60 דקות. חימום קצר (5 דק׳): אופניים או הליכה, סיבובי כתף עם גומייה, סט חימום קל בתרגיל הראשון.'+(D.ex[0].g?' תרגילים עם אותה אות (A1 ו־A2) עושים לסירוגין: סט, 60–90 שנ׳ מנוחה, סט של השני, וחוזרים.':' מנוחה: 90–120 שנ׳ בתרגילים המורכבים, 60 שנ׳ בשאר.')+'</div>';
   D.ex.forEach(function(e,ei){
