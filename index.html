@@ -142,7 +142,26 @@ input[type=date]{min-width:0;max-width:100%;-webkit-appearance:none;appearance:n
 <script>
 /* ===================== נתוני התוכנית ===================== */
 var DAYS=[
- {id:"d1",t:"יום 1 · עליון A",s:"חזה · גב · כתף צדית · זרועות",ex:[
+ {id:"A",t:"אימון A",n:"אימון A",c:"A",s:"חזה · גב · רגליים · כתף צדית · זרועות",nt:"שני אימונים, A ו־B, לסירוגין: A, B, A, B – 4 פעמים בשבוע. כל אימון כולל גם רגליים. הרגליים לא עבדו זמן רב, ולכן ברגליים נכנסים בהדרגה: בפעמים הראשונות RPE 6–7, בלי כשל, ו־2 סטים בכל תרגיל רגליים.",ex:[
+  {g:"A1",n:"לחיצת חזה במשקולות, ספסל משופע 30° בלבד",en:"Low incline dumbbell bench press (30 degrees)",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו סטי ירידה 8–10. מרפקים ~45°."},
+  {g:"A2",n:"משיכה עליונה (פולי) באחיזה ניטרלית או רחבה",en:"Lat pulldown neutral grip",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו ירידה 8–10. בלי נדנוד."},
+  {g:"B1",n:"לחיצת רגליים",en:"Leg press",s:3,r:"10–12",h:"טמפו איטי, בלי נעילה בסוף התנועה."},
+  {g:"B2",n:"כפיפת ברך בשכיבה / בישיבה (המסטרינג)",en:"Lying leg curl machine",s:3,r:"10–12",h:"טמפו איטי בירידה."},
+  {g:"C1",n:"לחיצת חזה במכונה, ישיבה (אחיזה ניטרלית אם יש)",en:"Seated machine chest press",s:3,r:"8–12",h:"נפח נוסף אחרי הלחיצה הכבדה. בלי לנעול מרפקים."},
+  {g:"C2",n:"הרמות צד במשקולות / בכבל",en:"Dumbbell lateral raise",s:3,r:"12–15",h:"עד גובה הכתף בלבד."},
+  {g:"D1",n:"פשיטת מרפק בכבל (פושדאון)",en:"Cable triceps rope pushdown",s:3,r:"10–15",h:"מרפקים צמודים לגוף."},
+  {g:"D2",n:"הרמות תאומים בעמידה",en:"Standing calf raise",s:3,r:"12–15",h:"טווח מלא, עצירה למעלה."},
+  {g:"E1",n:"כפיפת בטן במכונה (ישיבה)",en:"Seated ab crunch machine",s:3,r:"10–15",h:"מכווצים את הבטן ולא מושכים עם הידיים. נשימה החוצה בהתכווצות."}]},
+ {id:"B",t:"אימון B",n:"אימון B",c:"B",s:"חזה · גב · רגליים · כתף אחורית · זרועות",nt:"אותו עיקרון כמו אימון A: מתחלפים ביניהם, וגם כאן יש רגליים. ברגליים נשארים קלים בהתחלה (RPE 6–7, בלי כשל).",ex:[
+  {g:"A1",n:"לחיצת חזה במשקולות על ספסל שטוח (או מכונה)",en:"Flat dumbbell bench press",s:3,r:"6–10",h:"טופ סט כבד 6–8 חזרות, ואז ירידה."},
+  {g:"A2",n:"משיכה עליונה אחיזה צרה ניטרלית (או מתח בסיוע)",en:"Close grip neutral lat pulldown",s:3,r:"6–10",h:"אם המתח לא נוח לכתף – פולי."},
+  {g:"B1",n:"גובלט סקוואט עד ספסל גבוה (עומק קטן)",en:"Goblet box squat",s:3,r:"8–12",h:"משקל קל, RPE 6–7, טמפו איטי."},
+  {g:"B2",n:"גשר ישבן (על הרצפה, עם משקולת על האגן)",en:"Dumbbell glute bridge",s:3,r:"10–15",h:"עצירה של שנייה למעלה."},
+  {g:"C1",n:"חתירה נתמכת חזה (מכונה / משקולות)",en:"Chest supported row",s:3,r:"10–12",h:"הגב מוגן, הטכניקה נקייה."},
+  {g:"C2",n:"פרפר אחורי (כתף אחורית)",en:"Reverse pec deck rear delt fly",s:3,r:"12–15",h:"משקל קל, תנועה נקייה."},
+  {g:"D1",n:"כפיפת פטישים במשקולות",en:"Dumbbell hammer curl",s:3,r:"10–12",h:"בלי נדנוד."},
+  {g:"D2",n:"הרמת ברכיים בכיסא קפטן (בטן תחתונה)",en:"Captain's chair knee raise",s:3,r:"10–15",h:"נשענים על האמות, בלי נדנוד. אם אין כיסא קפטן – הרמת רגליים בשכיבה על ספסל."}]},
+ {id:"d1",t:"עליון A (קודם)",n:"עליון A (קודם)",c:"A",s:"חזה · גב · כתף צדית · זרועות",ex:[
   {g:"A1",n:"לחיצת חזה במשקולות, ספסל משופע 30° בלבד",en:"Low incline dumbbell bench press (30 degrees)",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו סטי ירידה 8–10. מרפקים ~45°."},
   {g:"A2",n:"משיכה עליונה (פולי) באחיזה ניטרלית או רחבה",en:"Lat pulldown neutral grip",s:4,r:"6–10",h:"טופ סט כבד 6–8, אחריו ירידה 8–10. בלי נדנוד."},
   {g:"B1",n:"לחיצת חזה במכונה, ישיבה (אחיזה ניטרלית אם יש)",en:"Seated machine chest press",s:3,r:"8–12",h:"נפח נוסף אחרי הלחיצה הכבדה. בלי לנעול מרפקים."},
@@ -152,7 +171,7 @@ var DAYS=[
   {g:"D1",n:"פרפר בכבל או במכונה (חזה)",en:"Cable chest fly",s:2,r:"12–15",h:"טווח נוח בלי מתיחה קיצונית של הכתף, מרפק מעט כפוף."},
   {g:"D2",n:"כפיפת פטישים במשקולות",en:"Dumbbell hammer curl",s:3,r:"10–12",h:"בלי נדנוד."},
   {g:"E1",n:"כפיפת בטן במכונה (ישיבה)",en:"Seated ab crunch machine",s:3,r:"10–15",h:"עם משקל שמאתגר: מכווצים את הבטן ולא מושכים עם הידיים. נשימה החוצה בהתכווצות. מבצעים בישיבה."}]},
- {id:"d2",t:"יום 2 · רגליים A",s:"רגליים · ישבן · ליבה",nt:"אימון רגליים פשוט, על מכונות. הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: באימוני הרגליים הראשונים RPE 6–7, בלי כשל, ומספיקים 2 סטים בכל תרגיל. כאבי שרירים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון.",ex:[
+ {id:"d2",t:"רגליים A (קודם)",n:"רגליים A (קודם)",c:"A",s:"רגליים · ישבן · ליבה",nt:"אימון רגליים פשוט, על מכונות. הרגליים לא עבדו זמן רב, ולכן נכנסים בהדרגה: באימוני הרגליים הראשונים RPE 6–7, בלי כשל, ומספיקים 2 סטים בכל תרגיל. כאבי שרירים ביום 2–3 הם צפויים ולא סיבה לדלג על האימון הבא. חימום של 5 דק׳ באופניים או בהליכה הוא חלק מהאימון.",ex:[
   {n:"לחיצת רגליים",en:"Leg press",s:3,r:"10–12",h:"טמפו איטי, בלי נעילה בסוף התנועה."},
   {n:"גשר ישבן (על הרצפה, עם משקולת על האגן)",en:"Dumbbell glute bridge",s:3,r:"10–15",h:"עצירה של שנייה למעלה. מעלים משקל כשכל הסטים נקיים."},
   {n:"כפיפת ברך בשכיבה / בישיבה (המסטרינג)",en:"Lying leg curl machine",s:3,r:"10–12",h:"טמפו איטי בירידה."},
@@ -160,7 +179,7 @@ var DAYS=[
   {n:"הרמות תאומים בעמידה",en:"Standing calf raise",s:3,r:"12–15",h:"טווח מלא, עצירה למעלה."},
   {n:"פלאנק",en:"Plank",s:3,r:"30–45 שנ׳",h:"גוף ישר, בלי שקיעה בגב. אפשר לרשום שניות במקום חזרות."},
   {n:"דד־באג",en:"Dead bug exercise",s:3,r:"10 לצד",h:"הגב התחתון צמוד לרצפה, תנועה איטית."}]},
- {id:"d3",t:"יום 3 · עליון B",s:"חזה · גב · כתף אחורית · זרועות",ex:[
+ {id:"d3",t:"עליון B (קודם)",n:"עליון B (קודם)",c:"B",s:"חזה · גב · כתף אחורית · זרועות",ex:[
   {g:"A1",n:"לחיצת חזה במכונה / משקולות על ספסל שטוח",en:"Flat dumbbell bench press",s:4,r:"6–10",h:"טופ סט כבד 6–8 חזרות, ואז ירידה."},
   {g:"A2",n:"משיכה עליונה אחיזה צרה ניטרלית (או מתח בסיוע)",en:"Close grip neutral lat pulldown",s:3,r:"6–10",h:"אם המתח לא נוח לכתף – פולי."},
   {g:"B1",n:"לחיצת חזה משופעת במכונה או בסמית׳ (זווית נמוכה)",en:"Low incline smith machine press",s:3,r:"8–12",h:"זווית של עד 30°, לא יותר."},
@@ -170,7 +189,7 @@ var DAYS=[
   {g:"D1",n:"קרוס־אובר בכבל, מגבוה למטה (חזה תחתון)",en:"High to low cable crossover",s:2,r:"12–15",h:"מרפקים מעט כפופים, הידיים נפגשות מול הבטן התחתונה."},
   {g:"D2",n:"סופר־סט: כפיפת מרפק בכבל + פשיטת מרפק בחבל",en:"Cable biceps curl",s:3,r:"10–15",h:"בלי מנוחה בין שני התרגילים, מנוחה 90 שנ׳ אחרי הזוג."},
   {g:"E1",n:"הרמת ברכיים בכיסא קפטן (בטן תחתונה)",en:"Captain's chair knee raise",s:3,r:"10–15",h:"נשענים על האמות, בלי נדנוד. מרימים את האגן מעט בסוף התנועה. אם אין כיסא קפטן, אפשר הרמת רגליים שכיבה על ספסל."}]},
- {id:"d4",t:"יום 4 · רגליים B",s:"ישבן · ירך אחורית · ליבה",nt:"אימון קצר וקל יותר מיום 2: משקל קל, RPE 6–7. בהתחלה 2 סטים בכל תרגיל, ואם עברת את יום 2 בקלות – מוסיפים סט.",ex:[
+ {id:"d4",t:"רגליים B (קודם)",n:"רגליים B (קודם)",c:"B",s:"ישבן · ירך אחורית · ליבה",nt:"אימון קצר וקל יותר מיום 2: משקל קל, RPE 6–7. בהתחלה 2 סטים בכל תרגיל, ואם עברת את יום 2 בקלות – מוסיפים סט.",ex:[
   {n:"גובלט סקוואט עד ספסל גבוה (עומק קטן)",en:"Goblet box squat",s:2,r:"8–12",h:"משקל קל, RPE 6–7, טמפו איטי. מטרתו תנועה ולא עומס."},
   {n:"גשר ישבן חד־רגלי",en:"Single leg glute bridge",s:3,r:"10 לצד",h:"אפשר גם עם משקולת על האגן."},
   {n:"כפיפת ברך בישיבה",en:"Seated leg curl machine",s:3,r:"12–15",h:"אחרי יום 2 – אפשר להפחית משקל."},
@@ -282,9 +301,11 @@ function renderNav(){
 function dayName(d){return ["יום ראשון","יום שני","יום שלישי","יום רביעי","יום חמישי","יום שישי","שבת"][new Date(d+"T12:00:00").getDay()]}
 function vWorkout(){
   var h=bkNudge()+'<div class="card"><div class="row"><div style="flex:1"><label class="f" style="margin-top:0">תאריך האימון</label><input type="date" value="'+UI.wdate+'" data-wdate="1"></div></div></div>';
+  if(UI.day>=2&&!hasData(S.w[UI.wdate+"|"+DAYS[UI.day].id]))UI.day=0;
   h+='<div class="seg">'+DAYS.map(function(d,i){
     var done=hasData(S.w[UI.wdate+"|"+d.id]);
-    return '<button class="'+(UI.day===i?'on':'')+'" data-day="'+i+'"><span>'+d.t.split(" · ")[1]+'</span>'+(done?'<em>✓</em>':'')+'</button>'}).join("")+'</div>';
+    if(i>=2&&!done)return '';
+    return '<button class="'+(UI.day===i?'on':'')+'" data-day="'+i+'"><span>'+d.n+'</span>'+(done?'<em>✓</em>':'')+'</button>'}).join("")+'</div>';
   var D=DAYS[UI.day], rec=peek(UI.wdate,D.id);
   if(UI.sub&&UI.sub.indexOf(UI.wdate+"_"+UI.day+"_")!==0)UI.sub=null;
   h+=exList()+'<div class="card"><h2>'+D.t+'</h2><div class="small" style="margin:-2px 0 6px">'+D.s+'</div>';
@@ -475,9 +496,9 @@ function barChart(dates,sets){
 }
 function sessionsOn(date){var a=[];DAYS.forEach(function(D,i){if(hasData(S.w[date+"|"+D.id]))a.push(i)});return a}
 function nextWorkout(){
-  var best="",bi=-1;
-  Object.keys(S.w).forEach(function(k){var p=k.split("|");if(hasData(S.w[k])&&p[0]>=best){var i=DAYS.map(function(d){return d.id}).indexOf(p[1]);if(i>=0&&(p[0]>best||i>bi)){best=p[0];bi=i}}});
-  return (bi+1)%DAYS.length;
+  var best="",c="";
+  Object.keys(S.w).forEach(function(k){var p=k.split("|");if(hasData(S.w[k])&&p[0]>=best){var D=DAYS.filter(function(d){return d.id===p[1]})[0];if(D){best=p[0];c=D.c}}});
+  return c==="A"?1:0;
 }
 var MON=["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
 function pad(n){return (n<10?"0":"")+n}
@@ -488,12 +509,12 @@ function vCal(){
   for(var i=0;i<first;i++)h+='<div></div>';
   for(var d=1;d<=n;d++){
     var date=Y+"-"+pad(M+1)+"-"+pad(d),ss=sessionsOn(date);cnt+=ss.length;
-    h+='<button class="cd'+(ss.length?' has':'')+(date===t?' today':'')+(date===UI.cd?' sel':'')+'" data-cd="'+date+'"><span>'+d+'</span><span class="m">'+ss.map(function(i){return '<i class="'+(i%2?'lo':'up')+'">'+(i<2?"A":"B")+'</i>'}).join("")+'</span></button>';
+    h+='<button class="cd'+(ss.length?' has':'')+(date===t?' today':'')+(date===UI.cd?' sel':'')+'" data-cd="'+date+'"><span>'+d+'</span><span class="m">'+ss.map(function(i){return '<i class="'+(DAYS[i].c==="A"?'up':'lo')+'">'+DAYS[i].c+'</i>'}).join("")+'</span></button>';
   }
-  h+='</div><div class="leg"><span><i style="background:var(--blue)"></i>עליון</span><span><i style="background:var(--acc)"></i>רגליים</span><span style="margin-right:auto">אימונים החודש: <b style="color:var(--ink)">'+cnt+'</b></span></div></div>';
+  h+='</div><div class="leg"><span><i style="background:var(--blue)"></i>אימון A</span><span><i style="background:var(--acc)"></i>אימון B</span><span style="margin-right:auto">אימונים החודש: <b style="color:var(--ink)">'+cnt+'</b></span></div></div>';
   var ss=sessionsOn(UI.cd);
   h+='<div class="card"><b>'+dayName(UI.cd)+' · '+fmtD(UI.cd)+'</b><div class="small" style="margin:2px 0 8px">'+(ss.length?'בוצע בתאריך הזה. אפשר לפתוח, לערוך או להוסיף אימון:':'לא נרשם אימון. בחר אימון כדי להוסיף בתאריך הזה:')+'</div><div class="row">'+
-    DAYS.map(function(D,i){var on=ss.indexOf(i)>=0;return '<button class="pill'+(on?' on':'')+'" data-open="'+UI.cd+'_'+i+'">'+D.t.split(" · ")[1]+(on?' ✓':'')+'</button>'}).join("")+'</div></div>';
+    DAYS.map(function(D,i){var on=ss.indexOf(i)>=0;if(i>=2&&!on)return '';return '<button class="pill'+(on?' on':'')+'" data-open="'+UI.cd+'_'+i+'">'+D.n+(on?' ✓':'')+'</button>'}).join("")+'</div></div>';
   return h;
 }
 function vHome(){
@@ -503,7 +524,7 @@ function vHome(){
   var h=bkNudge();
   h+='<div class="sec"><small>המעקב שלך</small><b>לוח אימונים</b></div>'+vCal();
   var D=DAYS[nx];
-  h+='<div class="sec"><small>האימון הבא</small></div><div class="card next"><div><b>'+D.t.split(" · ")[1]+'</b><small>'+D.s+'</small></div><button class="btn" data-open="'+t+'_'+nx+'">התחל</button></div>';
+  h+='<div class="sec"><small>האימון הבא</small></div><div class="card next"><div><b>'+D.n+'</b><small>'+D.s+'</small></div><button class="btn" data-open="'+t+'_'+nx+'">התחל</button></div>';
   h+='<div class="sec"><small>השבוע שלך</small><b>סטים שבוצעו</b></div><div class="card" style="padding:12px 10px 6px">'+barChart(dates,st.sets)+'</div>';
   var dayTot=st.sets[t]||0,weekTot=0;Object.keys(st.sets).forEach(function(k){weekTot+=st.sets[k]});
   h+='<div class="sec"><small>הביצועים שלך</small><b>סיכום שבועי</b></div><div class="card perf"><div class="kv">'+
